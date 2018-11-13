@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Log;
 
-namespace CRM.Common.Classes
+namespace Common
 {
     public enum eStatus
     {
@@ -22,9 +22,9 @@ namespace CRM.Common.Classes
     {
         private int lineId;
         private int clientId;
+        private Client client;
         private string number;
         private eStatus status;
-        private int packageId;
         private LogWriter log = new LogWriter();
 
         /// <summary>
@@ -34,12 +34,11 @@ namespace CRM.Common.Classes
         /// <param name="number">number of the line</param>
         /// <param name="status">info about the line</param>
         /// <param name="packageId">package of the line</param>
-        public Line(int clientId, string number, eStatus status, int packageId)
+        public Line(int clientId, string number, eStatus status)
         {
             ClientId = clientId;
             Number = number;
             Status = status;
-            PackageId = packageId;
         }
 
         /// <summary>
@@ -124,32 +123,35 @@ namespace CRM.Common.Classes
             }
         }
 
-        /// <summary>
-        /// get package id
-        /// set package id - if value is negative throw exception
-        /// </summary>
-        public int PackageId
-        {
-            get { return packageId; }
-            set
-            {
-                try
-                {
-                    if (value > 0)
-                    {
-                        packageId = value;
-                    }
-                    else
-                    {
-                        throw new Exception("value must be non-negative");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.LogWrite("Assigning packageId error: " + ex.Message);
-                    throw new Exception("Assigning packageId error: " + ex.Message);
-                }
-            }
-        }
+        public int LineId { get => lineId; set => lineId = value; }
+        public Client Client { get => client; set => client = value; }
+
+        ///// <summary>
+        ///// get package id
+        ///// set package id - if value is negative throw exception
+        ///// </summary>
+        //public int PackageId
+        //{
+        //    get { return packageId; }
+        //    set
+        //    {
+        //        try
+        //        {
+        //            if (value > 0)
+        //            {
+        //                packageId = value;
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("value must be non-negative");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            log.LogWrite("Assigning packageId error: " + ex.Message);
+        //            throw new Exception("Assigning packageId error: " + ex.Message);
+        //        }
+        //    }
+        //}
     }
 }

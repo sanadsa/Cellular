@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CRM.Common.Classes;
 using CRM.Common.Interfaces;
+using Common;
+using DAL;
+using System.Data.Entity.Validation;
 
 namespace CRM.DAL
 {
-    public class DAL : ICRMRepository
+    public class CRMDAL : ICRMRepository
     {
+        CellularModel context = new CellularModel();
+
         public void AddClient(Client client)
         {
             throw new NotImplementedException();
@@ -27,7 +27,9 @@ namespace CRM.DAL
 
         public void AddServiceAgent(ServiceAgent agent)
         {
-            throw new NotImplementedException();
+
+            context.ServiceAgents.Add(agent);
+            context.SaveChanges();
         }
 
         public void DeleteClient(int clientId)

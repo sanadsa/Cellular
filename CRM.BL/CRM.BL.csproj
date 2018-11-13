@@ -44,9 +44,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{fea0b662-185b-460b-8b09-ececcc69c563}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
       <Project>{0678e1cd-03fc-4658-b5fc-9c5c65afc3dc}</Project>
       <Name>CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.DAL\CRM.DAL.csproj">
+      <Project>{7e345ec8-408a-4255-962b-4f243ca488af}</Project>
+      <Name>CRM.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,22 +1,23 @@
-﻿using System;
+﻿using Log;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
-using Log;
 
-namespace CRM.Common.Classes
+namespace Common
 {
     /// <summary>
-    /// Class person of type Client contain fields that only client have
+    /// Class of type Client contain the client information
     /// </summary>
-    public class Client : Person
+    public class Client
     {
+        private int clientID;
+        private string clientName;
         private string lastName;
         private int idNumber;
         private int clientTypeId;
+        private ClientType clientType;
         private string address;
         private string contactNumber;
         private int callsToCenter;
@@ -25,15 +26,36 @@ namespace CRM.Common.Classes
         /// <summary>
         /// constructor that initializes the Client data member 
         /// </summary>
-        public Client(string name, string lastName, int idNumber, int clientTypeId, 
-            string address, string contactNumber, int callsToCenter): base(name)
+        public Client(string name, string lastName, int idNumber, int clientTypeId,
+            string address, string contactNumber, int callsToCenter)
         {
+            ClientName = name;
             LastName = lastName;
             IdNumber = idNumber;
             ClientTypeId = clientTypeId;
             Address = address;
             ContactNumber = contactNumber;
             CallsToCenter = callsToCenter;
+        }
+
+        /// <summary>
+        /// get and set for client name
+        /// </summary>
+        public string ClientName
+        {
+            get { return clientName; }
+            set
+            {
+                try
+                {
+                    clientName = value;
+                }
+                catch (Exception ex)
+                {
+                    log.LogWrite("Assigning client name error: " + ex.Message);
+                    throw new Exception("Assigning client name error: " + ex.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -179,5 +201,8 @@ namespace CRM.Common.Classes
                 }
             }
         }
+
+        public int ClientID { get => clientID; set => clientID = value; }
+        public ClientType ClientType { get => clientType; set => clientType = value; }
     }
 }

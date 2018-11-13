@@ -41,13 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Client.cs" />
-    <Compile Include="Classes\ClientType.cs" />
-    <Compile Include="Classes\Line.cs" />
-    <Compile Include="Classes\Package.cs" />
-    <Compile Include="Classes\ServiceAgent.cs" />
     <Compile Include="Interfaces\ICRMRepository.cs" />
-    <Compile Include="Interfaces\ItemMangart.cs" />
+    <Compile Include="Interfaces\ICRMServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

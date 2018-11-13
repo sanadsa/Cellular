@@ -1,11 +1,14 @@
 ﻿using System;
-using CRM.Common.Classes;
+using Common;
 using CRM.Common.Interfaces;
+using CRM.DAL;
 
 namespace CRM.BL
 {
     public class BL : ICRMRepository
     {
+        CRMDAL dal = new CRMDAL();
+
         public void AddClient(Client client)
         {
             throw new NotImplementedException();
@@ -23,7 +26,8 @@ namespace CRM.BL
 
         public void AddServiceAgent(ServiceAgent agent)
         {
-            throw new NotImplementedException();
+            var newagent = new ServiceAgent("sanad", "132");
+            dal.AddServiceAgent(newagent);
         }
 
         public void DeleteClient(int clientId)

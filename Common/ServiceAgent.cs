@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
-using Log;
 
-namespace CRM.Common.Classes
+namespace Common
 {
     /// <summary>
     /// Class person of type Service agent contain fields that only agent have
     /// </summary>
-    public class ServiceAgent : Person
+    public class ServiceAgent
     {
+        private int serviceAgentId;
+        private string agentName;
         private string password;
         private int salesAmount;
         private LogWriter log = new LogWriter();
@@ -20,8 +21,9 @@ namespace CRM.Common.Classes
         /// <summary>
         /// constructor that initializes the ServiceAgent data member 
         /// </summary>
-        public ServiceAgent(string name, string pass) : base(name)
+        public ServiceAgent(string name, string pass)
         {
+            AgentName = name;
             Password = pass;
             SalesAmount = 0;
         }
@@ -56,7 +58,7 @@ namespace CRM.Common.Classes
             {
                 try
                 {
-                    if (value > 0)
+                    if (value >= 0)
                     {
                         salesAmount = value;
                     }
@@ -69,6 +71,28 @@ namespace CRM.Common.Classes
                 {
                     log.LogWrite("Assigning salesAmount error: " + ex.Message);
                     throw new Exception("assigning salesAmount error: " + ex.Message);
+                }
+            }
+        }
+
+        public int ServiceAgentId { get => serviceAgentId; set => serviceAgentId = value; }
+
+        /// <summary>
+        /// get and set for agent name
+        /// </summary>
+        public string AgentName
+        {
+            get { return agentName; }
+            set
+            {
+                try
+                {
+                    agentName = value;
+                }
+                catch (Exception ex)
+                {
+                    log.LogWrite("Assigning agentName error");
+                    throw new Exception("assigning agentName error " + ex.Message);
                 }
             }
         }

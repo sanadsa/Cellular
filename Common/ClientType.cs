@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Log;
 
-namespace CRM.Common.Classes
+namespace Common
 {
     /// <summary>
     /// Class that contain the pricing information according to type (vip, business, private..)
     /// </summary>
-    class ClientType
+    public class ClientType
     {
-        private int id;
+        private int clientTypeId;
         private string typeName;
         private double minutePrice;
         private int smsPrice;
@@ -21,9 +21,8 @@ namespace CRM.Common.Classes
         /// <summary>
         /// constructor that initializes the ClientType data member 
         /// </summary>
-        public ClientType(int id, string typeName, double minutePrice, int smsPrice)
+        public ClientType(string typeName, double minutePrice, int smsPrice)
         {
-            Id = id;
             TypeName = typeName;
             MinutePrice = minutePrice;
             SmsPrice = smsPrice;
@@ -34,14 +33,14 @@ namespace CRM.Common.Classes
         /// </summary>
         public int Id
         {
-            get { return id; }
+            get { return clientTypeId; }
             set
             {
                 try
                 {
                     if (value > 0)
                     {
-                        id = value;
+                        clientTypeId = value;
                     }
                     else
                     {

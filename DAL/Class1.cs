@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRM.Common
+namespace DAL
 {
-    public class ItemMangart
+    public class Class1
     {
     }
 }

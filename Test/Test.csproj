@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E345EC8-408A-4255-962B-4F243CA488AF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CRM.DAL</RootNamespace>
-    <AssemblyName>CRM.DAL</AssemblyName>
+    <ProjectGuid>{BAC3C185-DFAE-498F-8A0A-BFED6EE38C57}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,26 +49,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRMDAL.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{fea0b662-185b-460b-8b09-ececcc69c563}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM.BL\CRM.BL.csproj">
+      <Project>{f5b80959-41e5-45c7-9aa3-d4d02662c9ac}</Project>
+      <Name>CRM.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
       <Project>{0678e1cd-03fc-4658-b5fc-9c5c65afc3dc}</Project>
       <Name>CRM.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{580dfbc0-3556-45ad-b6ec-51754f2664f2}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\CRM.DAL\CRM.DAL.csproj">
+      <Project>{7e345ec8-408a-4255-962b-4f243ca488af}</Project>
+      <Name>CRM.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

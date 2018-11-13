@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRM.Common.Classes
+namespace Common
 {
     /// <summary>
     /// package info for the line, package can have:
@@ -19,11 +19,14 @@ namespace CRM.Common.Classes
         private int packageId;
         private string packageName;
         private int lineId;
+        private Line line;
         private double totalPrice;
+        private DateTime month;
         private int maxMinute;
         private double minutePrice;
         private double discountPercentage;
-        private int favoriteNumsId;
+        private int mostCalledId;
+        private MostCalled mostCalled;
         private bool mostCalledNums;
         private bool familyDiscount;
         // sales cost
@@ -43,12 +46,13 @@ namespace CRM.Common.Classes
         /// <param name="favoritNumId">id of the numbers that have dicsount (3 numbers)</param>
         /// <param name="mostCalled">discount for most called number (bool)</param>
         /// <param name="famDis">discount for the family(lines for same client)</param>
-        public Package(string name, int lineId, double price, int maxMinute, int minutePrice,
+        public Package(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
             double discount, int favoritNumId, bool mostCalled, bool famDis)
         {
             PackageName = name;
             LineId = lineId;
             TotalPrice = price;
+            Month = month;
             MaxMinute = maxMinute;
             MinutePrice = minutePrice;
             DiscountPercentage = discount;
@@ -63,10 +67,13 @@ namespace CRM.Common.Classes
         public double TotalPrice { get => totalPrice; set => totalPrice = value; }
         public int MaxMinute { get => maxMinute; set => maxMinute = value; }
         public double DiscountPercentage { get => discountPercentage; set => discountPercentage = value; }
-        public int FavoriteNumId { get => favoriteNumsId; set => favoriteNumsId = value; }
+        public int FavoriteNumId { get => mostCalledId; set => mostCalledId = value; }
         public bool MostCalledNums { get => mostCalledNums; set => mostCalledNums = value; }
         public bool FamilyDiscount { get => familyDiscount; set => familyDiscount = value; }
         public double MinutePrice { get => minutePrice; set => minutePrice = value; }
         public int PackageId { get => packageId; set => packageId = value; }
+        public DateTime Month { get => month; set => month = value; }
+        public Line Line { get => line; set => line = value; }
+        public MostCalled MostCalled { get => mostCalled; set => mostCalled = value; }
     }
 }
