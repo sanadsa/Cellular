@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ICRMRepository.cs" />
+    <Compile Include="Interfaces\ICrmRepository.cs" />
     <Compile Include="Interfaces\ICrmManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

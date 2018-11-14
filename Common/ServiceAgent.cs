@@ -18,6 +18,8 @@ namespace Common
         private int salesAmount;
         private LogWriter log = new LogWriter();
 
+        public ServiceAgent() { }
+
         /// <summary>
         /// constructor that initializes the ServiceAgent data member 
         /// </summary>
@@ -26,6 +28,17 @@ namespace Common
             AgentName = name;
             Password = pass;
             SalesAmount = 0;
+        }
+
+        /// <summary>
+        /// ctor for updating the agent in db
+        /// </summary>
+        /// <param name="sales">new sales amount</param>
+        public ServiceAgent(string name, string pass, int sales)
+        {
+            AgentName = name;
+            Password = pass;
+            SalesAmount = sales;
         }
 
         /// <summary>

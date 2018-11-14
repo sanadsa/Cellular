@@ -17,35 +17,20 @@ namespace Test
             try
             {
                 var bl = new CrmBl();
-                var agent = bl.AddServiceAgent("Omer", "111");
-                //var test = new CRMDAL();
+                //var agent = bl.AddServiceAgent("Omer", "111");
+                var test = new CrmDal();
+                //bl.UpdateServiceAgent(7, "Omer", "546", 2);
+                var newagent = new ServiceAgent("Omer", "456", 1);
+                test.UpdateServiceAgent(newagent, 7);
+                //var client = bl.AddClient("hhhh", "ss", 5555, 5, "yaffo", "054", 7);
+
                 //var newagent = new ServiceAgent("jhon", "132");
                 //test.AddServiceAgent(newagent);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
-            //try
-            //{
-            //    var test = new CRMDAL();
-            //    var newagent = new ServiceAgent("jordan", "132");
-            //    test.AddServiceAgent(newagent);
-            //}
-            //catch (DbEntityValidationException e)
-            //{
-            //    foreach (var eve in e.EntityValidationErrors)
-            //    {
-            //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-            //                ve.PropertyName, ve.ErrorMessage);
-            //        }
-            //    }
-            //    throw;
-            //}
+            }            
         }
     }
 }

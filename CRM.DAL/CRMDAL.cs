@@ -3,11 +3,16 @@ using CRM.Common.Interfaces;
 using Common;
 using DAL;
 using System.Data.Entity.Validation;
+using Log;
+using System.Linq;
+using System.Reflection;
 
 namespace CRM.DAL
 {
-    public class CRMDAL : ICRMRepository
+    public class CrmDal : ICrmRepository
     {
+        LogWriter log = new LogWriter();
+
         public ServiceAgent AddServiceAgent(ServiceAgent agent)
         {
             try
@@ -21,21 +26,35 @@ namespace CRM.DAL
             }
             catch (Exception e)
             {
-                throw new Exception("DAL exception: " + e.Message);
+                log.LogWrite("Add Agent Dal error: " + e.Message);
+                throw new Exception("agent DAL exception: " + e.Message);
             }
         }
 
-        public void AddClient(Client client)
+        public Client AddClient(Client client)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    context.Clients.Add(client);
+                    context.SaveChanges();
+                    return client;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add client Dal error: " + e.Message);
+                throw new Exception("Add client DAL exception: " + e.Message);
+            }
+        }
+
+        public Line AddLine(Line line)
         {
             throw new NotImplementedException();
         }
 
-        public void AddLine(Line line)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddPackage(Package package)
+        public Package AddPackage(Package package)
         {
             throw new NotImplementedException();
         }
@@ -80,9 +99,31 @@ namespace CRM.DAL
             throw new NotImplementedException();
         }
 
-        public void UpdateServiceAgent(ServiceAgent newAgent, int agentId)
+        public ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var agentInDb = context.ServiceAgents.SingleOrDefault(a => a.ServiceAgentId == agentId);
+                    if (agentInDb == null)
+                    {
+                        throw new Exception("Agent not found");
+                    }
+                    agentInDb.AgentName = newAgent.AgentName;
+                    agentInDb.Password = newAgent.Password;
+                    agentInDb.SalesAmount = newAgent.SalesAmount;
+
+                    context.SaveChanges();
+                    return newAgent;
+                }
+            }
+            catch (TargetInvocationException e)
+            {
+                log.LogWrite("Update Agent Dal error: " + e.Message);
+                //throw new Exception("Update Agent DAL exception: " + e.Message);
+                throw e.InnerException;
+            }
         }
     }
 }

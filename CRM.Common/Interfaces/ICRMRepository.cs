@@ -10,24 +10,24 @@ namespace CRM.Common.Interfaces
     /// <summary>
     /// interface for the CRM, implemented by the BL
     /// </summary>
-    public interface ICRMRepository
+    public interface ICrmRepository
     {
         // client
-        void AddClient(Client client);
+        Client AddClient(Client client);
         void UpdateClient(Client newClient, int clientId);
         void DeleteClient(int clientId);
         bool IsClientExists(int idNumber, string number);
         // service agent
         ServiceAgent AddServiceAgent(ServiceAgent agent);
-        void UpdateServiceAgent(ServiceAgent newAgent, int agentId);
+        ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId);
         void DeleteServiceAgent(int agentId);
         bool IsServiceAgentExists(string agentName, string password);
         // line
-        void AddLine(Line line);
+        Line AddLine(Line line);
         void UpdateLine(Line newLine, int lineId);
         void DeleteLine(int lineId);
         // package
-        void AddPackage(Package package);
+        Package AddPackage(Package package);
         void UpdatePackage(Package newPackage, int packageId);
     }
 }
