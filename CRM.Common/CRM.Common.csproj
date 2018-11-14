@@ -42,17 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ICRMRepository.cs" />
-    <Compile Include="Interfaces\ICRMServer.cs" />
+    <Compile Include="Interfaces\ICrmManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{fea0b662-185b-460b-8b09-ececcc69c563}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Log\Log.csproj">
-      <Project>{2cd84d3e-e656-4927-a03e-634492b1aae6}</Project>
-      <Name>Log</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

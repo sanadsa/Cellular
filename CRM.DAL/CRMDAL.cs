@@ -8,7 +8,22 @@ namespace CRM.DAL
 {
     public class CRMDAL : ICRMRepository
     {
-        CellularModel context = new CellularModel();
+        public ServiceAgent AddServiceAgent(ServiceAgent agent)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    context.ServiceAgents.Add(agent);
+                    context.SaveChanges();
+                    return agent;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("DAL exception: " + e.Message);
+            }
+        }
 
         public void AddClient(Client client)
         {
@@ -23,13 +38,6 @@ namespace CRM.DAL
         public void AddPackage(Package package)
         {
             throw new NotImplementedException();
-        }
-
-        public void AddServiceAgent(ServiceAgent agent)
-        {
-
-            context.ServiceAgents.Add(agent);
-            context.SaveChanges();
         }
 
         public void DeleteClient(int clientId)

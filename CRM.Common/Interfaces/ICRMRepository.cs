@@ -18,7 +18,7 @@ namespace CRM.Common.Interfaces
         void DeleteClient(int clientId);
         bool IsClientExists(int idNumber, string number);
         // service agent
-        void AddServiceAgent(ServiceAgent agent);
+        ServiceAgent AddServiceAgent(ServiceAgent agent);
         void UpdateServiceAgent(ServiceAgent newAgent, int agentId);
         void DeleteServiceAgent(int agentId);
         bool IsServiceAgentExists(string agentName, string password);
