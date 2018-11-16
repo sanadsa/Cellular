@@ -12,6 +12,10 @@ namespace CRM.BL
         private string url = "http://localhost:11248/";
         private LogWriter log = new LogWriter();
 
+        /// <summary>
+        /// adds agent to db- gets the agent params from ui and calls the server using http
+        /// </summary>
+        /// <returns>if succeeded return the agent, if not throws exception</returns>
         public ServiceAgent AddServiceAgent(string agentName, string password)
         {
             try
@@ -42,6 +46,10 @@ namespace CRM.BL
             }
         }
 
+        /// <summary>
+        /// update agent fields - gets the agent params from ui and calls the server using http
+        /// </summary>
+        /// <returns>if succeeded return the agent, if not throws exception</returns>
         public ServiceAgent UpdateServiceAgent(int agentId, string name, string pass, int salesAmount)
         {
             try
@@ -53,7 +61,7 @@ namespace CRM.BL
                     //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var agent = new ServiceAgent(name, pass, salesAmount);
                     string json = JsonConvert.SerializeObject(agent);
-                    var result = client.PostAsync("api/crm/agent/"+agentId, new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
+                    var result = client.PutAsync("api/crm/agent/"+agentId, new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
 
                     if (result.IsSuccessStatusCode)
                     {
@@ -74,6 +82,10 @@ namespace CRM.BL
             }
         }
 
+        /// <summary>
+        /// adds client to db- gets the client params from ui and calls the server using http
+        /// </summary>
+        /// <returns>if succeeded return the client, if not throws exception</returns>
         public Client AddClient(string name, string lastName, int idNumber, int clientTypeId, string address, string contactNumber, int callsToCenter)
         {
             try
@@ -114,6 +126,16 @@ namespace CRM.BL
         }
 
         public ClientType AddClientType(string typeName, double minutePrice, int smsPrice)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Client AddClient(string name, string lastName, int idNumber, int clientTypeId, string address, string contactNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateCallsToCenter(int clientId, int callsToCenter)
         {
             throw new NotImplementedException();
         }

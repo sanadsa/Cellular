@@ -38,6 +38,8 @@ namespace Common
             CallsToCenter = callsToCenter;
         }
 
+        public Client() { }
+
         /// <summary>
         /// get and set for client name
         /// </summary>

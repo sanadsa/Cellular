@@ -14,14 +14,12 @@ namespace CRM.Common.Interfaces
     {
         // client
         Client AddClient(Client client);
-        void UpdateClient(Client newClient, int clientId);
+        Client UpdateClient(Client newClient, int clientId);
         void DeleteClient(int clientId);
-        bool IsClientExists(int idNumber, string number);
+        void AddCallsToCenter(int clientId);
         // service agent
         ServiceAgent AddServiceAgent(ServiceAgent agent);
         ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId);
-        void DeleteServiceAgent(int agentId);
-        bool IsServiceAgentExists(string agentName, string password);
         // line
         Line AddLine(Line line);
         void UpdateLine(Line newLine, int lineId);

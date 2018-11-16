@@ -17,15 +17,15 @@ namespace Test
             try
             {
                 var bl = new CrmBl();
-                //var agent = bl.AddServiceAgent("Omer", "111");
                 var test = new CrmDal();
-                //bl.UpdateServiceAgent(7, "Omer", "546", 2);
-                var newagent = new ServiceAgent("Omer", "456", 1);
-                test.UpdateServiceAgent(newagent, 7);
-                //var client = bl.AddClient("hhhh", "ss", 5555, 5, "yaffo", "054", 7);
-
-                //var newagent = new ServiceAgent("jhon", "132");
+                //var agent = bl.AddServiceAgent("Omer", "111");
+                var newagent = new ServiceAgent("Morgan", "3456");
+                var client = new Client("hds", "ss", 5555, 3, "yaffo", "0546", 7);
+                //test.UpdateServiceAgent(newagent, 7);
+                test.AddClient(client);
                 //test.AddServiceAgent(newagent);
+
+                //bl.UpdateServiceAgent(7, "Omer", "10101", 78);
             }
             catch (Exception e)
             {
