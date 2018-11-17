@@ -28,7 +28,6 @@ namespace CRM.BL
                     var agent = new ServiceAgent(agentName, password);
                     string json = JsonConvert.SerializeObject(agent);
                     var result = client.PostAsync("api/crm/agent", new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
-
                     if (result.IsSuccessStatusCode)
                     {
                         string response = result.Content.ReadAsStringAsync().Result;
@@ -138,6 +137,30 @@ namespace CRM.BL
         public int UpdateCallsToCenter(int clientId, int callsToCenter)
         {
             throw new NotImplementedException();
+        }
+
+        public void LoginAgent(string name, string password)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/crm/agent" + name + "/" + password).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                    }
+                    else
+                    {
+                        throw new Exception("Get Agent api error");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Get agent exception: " + e.Message);
+            }
         }
     }
 }

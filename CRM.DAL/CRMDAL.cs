@@ -80,12 +80,53 @@ namespace CRM.DAL
 
         public Line AddLine(Line line)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var lineNumber = context.Lines.SingleOrDefault(l => l.Number == line.Number);
+                    var clientFromDb = context.Clients.SingleOrDefault(c => c.ClientID == line.ClientId);
+                    if (clientFromDb == null)
+                    {
+                        throw new Exception("Client not exits, choose another client id");
+                    }
+                    if (lineNumber != null)
+                    {
+                        throw new Exception("Number associated to other line, choose another number");
+                    }
+                    context.Lines.Add(line);
+                    context.SaveChanges();
+                    return line;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add line Dal error: " + e.Message);
+                throw new Exception("Add line exception: " + e.Message);
+            }
         }
 
         public Package AddPackage(Package package)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var lineFromDb = context.Lines.SingleOrDefault(l => l.LineId == package.LineId);
+                    if (lineFromDb == null)
+                    {
+                        throw new Exception("Line not exits, choose another line id");
+                    }
+                    context.Packages.Add(package);
+                    context.SaveChanges();
+                    return package;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add package Dal error: " + e.Message);
+                throw new Exception("Add package exception: " + e.Message);
+            }
         }
 
         // add Enurable<Line> in client class to delete all lines of the client 
@@ -105,14 +146,30 @@ namespace CRM.DAL
             }
             catch (Exception e)
             {
-                log.LogWrite("Update Agent Dal error: " + e.Message);
-                throw new Exception("Update Agent DAL exception: " + e.Message);
+                log.LogWrite("Delete client Dal error: " + e.Message);
+                throw new Exception("Delete client exception: " + e.Message);
             }
         }
 
+        // add Enurable<Package> in line class to delete all packages of the line
         public void DeleteLine(int lineId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    //var line = context.Lines.Include(l => l.packages).Single(l => l.LineId == lineId);
+                    //context.Packages.RemoveRange(line.packages);
+                    var line = context.Lines.Find(lineId);
+                    context.Lines.Remove(line);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Delete line Dal error: " + e.Message);
+                throw new Exception("Delete line exception: " + e.Message);
+            }
         }   
            
         // check what happens if update contactNum/Idnum to an existing one
@@ -184,6 +241,32 @@ namespace CRM.DAL
         public void AddCallsToCenter(int clientId)
         {
             throw new NotImplementedException();
+        }
+
+        public ServiceAgent Login(string name, string password)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name && Password=@Pass", new SqlParameter("@Name", name), new SqlParameter("@Pass", password))
+                    .FirstOrDefault();
+                    
+                    if (agentFromDb == null)
+                    {
+                        throw new Exception("User not exists, check username and password");
+                    }
+                    else
+                    {
+                        return agentFromDb;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get agent error: " + e.Message);
+                throw new Exception("Get agent exception: " + e.Message);
+            }
         }
     }
 }

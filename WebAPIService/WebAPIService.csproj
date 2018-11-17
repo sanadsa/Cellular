@@ -289,6 +289,10 @@
       <Project>{FEA0B662-185B-460B-8B09-ECECCC69C563}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
+      <Project>{0678E1CD-03FC-4658-B5FC-9C5C65AFC3DC}</Project>
+      <Name>CRM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.DAL\CRM.DAL.csproj">
       <Project>{7E345EC8-408A-4255-962B-4F243CA488AF}</Project>
       <Name>CRM.DAL</Name>

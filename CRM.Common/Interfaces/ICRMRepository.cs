@@ -20,6 +20,7 @@ namespace CRM.Common.Interfaces
         // service agent
         ServiceAgent AddServiceAgent(ServiceAgent agent);
         ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId);
+        ServiceAgent Login(string name, string password);
         // line
         Line AddLine(Line line);
         void UpdateLine(Line newLine, int lineId);
