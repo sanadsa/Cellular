@@ -78,6 +78,11 @@ namespace CRM.DAL
             }
         }
 
+        /// <summary>
+        /// add line to db - if line number exists in db throw exception
+        /// if client not exists in db throw exception
+        /// </summary>
+        /// <returns>line to know the line added successfully</returns>
         public Line AddLine(Line line)
         {
             try
@@ -106,6 +111,11 @@ namespace CRM.DAL
             }
         }
 
+        /// <summary>
+        /// add packcage to db - if line doesnot exist in db throw exception
+        /// </summary>
+        /// <param name="package">package to add</param>
+        /// <returns>the package that added</returns>
         public Package AddPackage(Package package)
         {
             try
@@ -130,6 +140,9 @@ namespace CRM.DAL
         }
 
         // add Enurable<Line> in client class to delete all lines of the client 
+        /// <summary>
+        /// Delete client from db by client id
+        /// </summary>
         public void DeleteClient(int clientId)
         {
             try
@@ -152,6 +165,9 @@ namespace CRM.DAL
         }
 
         // add Enurable<Package> in line class to delete all packages of the line
+        /// <summary>
+        /// Delete line from db by line id
+        /// </summary>
         public void DeleteLine(int lineId)
         {
             try
@@ -173,6 +189,11 @@ namespace CRM.DAL
         }   
            
         // check what happens if update contactNum/Idnum to an existing one
+        /// <summary>
+        /// Update existing client in db by client id
+        /// </summary>
+        /// <param name="newClient">client with updated fields</param>
+        /// <returns></returns>
         public Client UpdateClient(Client newClient, int clientId)
         {
             try
@@ -187,9 +208,10 @@ namespace CRM.DAL
                     clientInDb.Address = newClient.Address;
                     clientInDb.ClientName = newClient.ClientName;
                     clientInDb.ClientTypeId = newClient.ClientTypeId;
-                    clientInDb.ContactNumber = clientInDb.ContactNumber;
-                    clientInDb.IdNumber = clientInDb.IdNumber;
-                    clientInDb.LastName = clientInDb.LastName;
+                    clientInDb.ContactNumber = newClient.ContactNumber;
+                    clientInDb.IdNumber = newClient.IdNumber;
+                    clientInDb.LastName = newClient.LastName;
+                    clientInDb.CallsToCenter = newClient.CallsToCenter;
                     
                     context.SaveChanges();
                     return newClient;
@@ -202,16 +224,77 @@ namespace CRM.DAL
             }
         }
 
-        public void UpdateLine(Line newLine, int lineId)
+        /// <summary>
+        /// Update existing line in db by line id
+        /// </summary>
+        /// <param name="newLine">line with updated fields</param>
+        /// <returns></returns>
+        public Line UpdateLine(int lineId, eStatus status)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var lineInDb = context.Lines.SingleOrDefault(l => l.LineId == lineId);
+                    if (lineInDb == null)
+                    {
+                        throw new Exception("Line not found");
+                    }
+                    lineInDb.Status = status;
+
+                    context.SaveChanges();
+                    return lineInDb;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Update line error: " + e.Message);
+                throw new Exception("Update line exception: " + e.Message);
+            }
         }
 
-        public void UpdatePackage(Package newPackage, int packageId)
+        /// <summary>
+        /// Update existing package in db by package id
+        /// </summary>
+        /// <param name="newPackage">package with updated fields</param>
+        /// <returns></returns>
+        public Package UpdatePackage(Package newPackage, int packageId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var packInDb = context.Packages.SingleOrDefault(p => p.PackageId == packageId);
+                    if (packInDb == null)
+                    {
+                        throw new Exception("Package not found");
+                    }
+                    packInDb.DiscountPercentage = newPackage.DiscountPercentage;
+                    packInDb.FamilyDiscount = newPackage.FamilyDiscount;
+                    packInDb.FavoriteNumId = newPackage.FavoriteNumId;
+                    packInDb.MaxMinute = newPackage.MaxMinute;
+                    packInDb.MinutePrice = newPackage.MinutePrice;
+                    packInDb.Month = newPackage.Month;
+                    packInDb.MostCalled = newPackage.MostCalled;
+                    packInDb.MostCalledNums = newPackage.MostCalledNums;
+                    packInDb.TotalPrice = newPackage.TotalPrice;
+
+                    context.SaveChanges();
+                    return newPackage;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Update package error: " + e.Message);
+                throw new Exception("Update package exception: " + e.Message);
+            }
         }
 
+        /// <summary>
+        /// Update existing agent in db by agent id
+        /// </summary>
+        /// <param name="newAgent">agent with updated password and sales</param>
+        /// <returns></returns>
         public ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId)
         {
             try
@@ -223,7 +306,6 @@ namespace CRM.DAL
                     {
                         throw new Exception("Agent not found");
                     }
-                    agentInDb.AgentName = newAgent.AgentName;
                     agentInDb.Password = newAgent.Password;
                     agentInDb.SalesAmount = newAgent.SalesAmount;
 
@@ -237,12 +319,10 @@ namespace CRM.DAL
                 throw new Exception("Update Agent DAL exception: " + e.Message);
             }
         }
-
-        public void AddCallsToCenter(int clientId)
-        {
-            throw new NotImplementedException();
-        }
-
+        
+        /// <summary>
+        /// Login by checking if agent exists in db and password correct
+        /// </summary>
         public ServiceAgent Login(string name, string password)
         {
             try
@@ -267,6 +347,6 @@ namespace CRM.DAL
                 log.LogWrite("Get agent error: " + e.Message);
                 throw new Exception("Get agent exception: " + e.Message);
             }
-        }
+        }       
     }
 }

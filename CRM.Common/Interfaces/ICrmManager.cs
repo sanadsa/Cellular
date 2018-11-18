@@ -9,18 +9,24 @@ namespace CRM.Common.Interfaces
 {
     public interface ICrmManager
     {
+        // client
+        Client AddClient(string name, string lastName, int idNumber, int clientTypeId,
+                         string address, string contactNumber);
+        Client UpdateClient(int clientId, string name, string lastName, int idNumber, int clientTypeId,
+                         string address, string contactNumber, int callsToCenter);
+        void DeleteClient(int clientId);
         // service agent
         ServiceAgent AddServiceAgent(string agentName, string password);
         ServiceAgent UpdateServiceAgent(int agentId, string name, string pass, int salesAmount);
         void LoginAgent(string name, string password);
-        // client
-        Client AddClient(string name, string lastName, int idNumber, int clientTypeId,
-                         string address, string contactNumber);
-        int UpdateCallsToCenter(int clientId, int callsToCenter);
-        void UpdateClient(int clientId, string name, string lastName, int idNumber, int clientTypeId,
-                         string address, string contactNumber, int callsToCenter);
-        void DeleteClient(int clientId);
-        // client type
-        ClientType AddClientType(string typeName, double minutePrice, int smsPrice);
+        // line
+        Line AddLine(int clientId, string number, eStatus status);
+        Line UpdateLineStatus(int lineId, eStatus status);
+        void DeleteLine(int lineId);
+        // package
+        Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
+            double discount, int favoritNumId, bool mostCalled, bool famDis);
+        Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
+            double discount, int favoritNumId, bool mostCalled, bool famDis);
     }
 }

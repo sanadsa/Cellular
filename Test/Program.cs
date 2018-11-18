@@ -23,7 +23,7 @@ namespace Test
                 var test = new CrmDal();
                 //var agent = bl.AddServiceAgent("Omer", "111");
                 var newagent = new ServiceAgent("Iron", "3456");
-                var client = new Client("hds", "ss", 5555, 3, "yaffo", "0546", 7);
+                var client = new Client("hds", "ss", 5555, 3, "yaffo", "0546", 5);
                 //test.UpdateServiceAgent(newagent, 7);
                 //DAL.AddServiceAgent(newagent);
                 //test.AddClient(client);

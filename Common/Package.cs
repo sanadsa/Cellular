@@ -40,12 +40,12 @@ namespace Common
         /// <param name="name">name of  the package</param>
         /// <param name="lineId">the id of the line that have this package</param>
         /// <param name="price">total price of the package</param>
-        /// <param name="maxMinute">max call minutes for the line in month</param>
+        /// <param name="maxMinute">first sale - max call minutes for the line in month</param>
         /// <param name="minutePrice">the price for all call minutes</param>
-        /// <param name="discount">discount percentage for favorite numbers</param>
+        /// <param name="discount">second sale - discount percentage for favorite numbers</param>
         /// <param name="favoritNumId">id of the numbers that have dicsount (3 numbers)</param>
-        /// <param name="mostCalled">discount for most called number (bool)</param>
-        /// <param name="famDis">discount for the family(lines for same client)</param>
+        /// <param name="mostCalled">third sale - discount for most called number (bool)</param>
+        /// <param name="famDis">fourth sale - discount for the family(lines for same client)</param>
         public Package(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
             double discount, int favoritNumId, bool mostCalled, bool famDis)
         {

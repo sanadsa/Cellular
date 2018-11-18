@@ -16,17 +16,17 @@ namespace CRM.Common.Interfaces
         Client AddClient(Client client);
         Client UpdateClient(Client newClient, int clientId);
         void DeleteClient(int clientId);
-        void AddCallsToCenter(int clientId);
         // service agent
         ServiceAgent AddServiceAgent(ServiceAgent agent);
         ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId);
         ServiceAgent Login(string name, string password);
         // line
         Line AddLine(Line line);
-        void UpdateLine(Line newLine, int lineId);
+        //Line UpdateLine(Line newLine, int lineId);
+        Line UpdateLine(int lineId, eStatus status);
         void DeleteLine(int lineId);
         // package
         Package AddPackage(Package package);
-        void UpdatePackage(Package newPackage, int packageId);
+        Package UpdatePackage(Package newPackage, int packageId);
     }
 }
