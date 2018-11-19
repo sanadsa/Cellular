@@ -200,7 +200,7 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
-                    var clientInDb = context.Clients.SingleOrDefault(c => c.ClientID == clientId);
+                    var clientInDb = context.Clients.SingleOrDefault(c =>c.ClientID == clientId);
                     if (clientInDb == null)
                     {
                         throw new Exception("Client not found");
@@ -329,6 +329,7 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
+                    // var agentFromDb = context.ServiceAgents.SingleOrDefault(a => (a.AgentName == name && a.Password == password));
                     var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name && Password=@Pass", new SqlParameter("@Name", name), new SqlParameter("@Pass", password))
                     .FirstOrDefault();
                     

@@ -61,6 +61,12 @@ namespace Common
             FamilyDiscount = famDis;
         }
 
+        // for entity framework
+        public Package()
+        {
+
+        }
+
         // TO DO: documentation + checking and exception and log for each property
         public string PackageName { get => packageName; set => packageName = value; }
         public int LineId { get => lineId; set => lineId = value; }

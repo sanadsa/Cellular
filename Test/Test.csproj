@@ -73,6 +73,18 @@
       <Project>{7e345ec8-408a-4255-962b-4f243ca488af}</Project>
       <Name>CRM.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Invoice.BL\Invoice.BL.csproj">
+      <Project>{8D239DD7-6D94-4C59-B762-6A2DB58288D3}</Project>
+      <Name>Invoice.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Invoice.Common\Invoice.Common.csproj">
+      <Project>{766D1534-CC10-45D0-9E02-E780278CB8C5}</Project>
+      <Name>Invoice.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Invoice.DAL\Invoice.DAL.csproj">
+      <Project>{234E05FB-1249-4C72-ACA8-EC19E25725A8}</Project>
+      <Name>Invoice.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
