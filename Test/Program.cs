@@ -30,10 +30,12 @@ namespace Test
                 var newagent = new ServiceAgent("Iron", "3456");
                 var client = new Client("hds", "ss", 5555, 3, "yaffo", "0546", 5);
                 var package = new Package("pp", 3, 50, new DateTime(2000, 11, 10), 120, 150, 0.3, 1, false, false);
-                // var p = invoiceRepository.GetPackage(3);
+                //Console.WriteLine(invoiceRepository.GetClientType(4).Id);
+                Console.WriteLine(invoiceBl.GetCallsPayment(4, new DateTime(2000, 11, 10)));
+                //var p = invoiceRepository.GetPackage(3);
                 //Console.WriteLine(p.PackageName);
                 // var calls = invoiceRepository.GetCalls(3, new DateTime(2000,11,10));
-                Console.WriteLine(invoiceBl.GetMinutesLeft(3, new DateTime(2000,11,10)));
+                //Console.WriteLine(invoiceBl.GetMinutesLeft(3, new DateTime(2000,11,10)));
             }
             catch (Exception e)
             {

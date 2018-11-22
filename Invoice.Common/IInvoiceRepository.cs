@@ -15,6 +15,8 @@ namespace Invoice.Common
         // receipt
         Payment AddPayment(Payment payment);
         Package GetPackage(int lineId);
-        IEnumerable<Call> GetCalls(int lineId, DateTime month);
+        IEnumerable<Call> GetCalls(int lineId, int month);
+        IEnumerable<SMS> GetAllSms(int lineId, int month);
+        ClientType GetClientType(int lineId);
     }
 }

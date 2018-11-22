@@ -41,6 +41,11 @@ namespace Common
             Status = status;
         }
 
+        public Line()
+        {
+
+        }
+
         /// <summary>
         /// get clientId
         /// set clientId - if value is negative throw exception
@@ -81,7 +86,7 @@ namespace Common
                 {
                     if (value.Length < 10)
                     {
-                        foreach (char c in number)
+                        foreach (char c in value)
                         {
                             if (c < '0' || c > '9')
                             {

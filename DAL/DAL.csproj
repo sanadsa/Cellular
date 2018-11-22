@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201811131937277_CellularMigration.Designer.cs">
       <DependentUpon>201811131937277_CellularMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811211635072_addCallToInCallTable.cs" />
+    <Compile Include="Migrations\201811211635072_addCallToInCallTable.Designer.cs">
+      <DependentUpon>201811211635072_addCallToInCallTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811131937277_CellularMigration.resx">
       <DependentUpon>201811131937277_CellularMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811211635072_addCallToInCallTable.resx">
+      <DependentUpon>201811211635072_addCallToInCallTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

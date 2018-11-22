@@ -21,6 +21,11 @@ namespace Common
             DestinationNum = destinationNum;
         }
 
+        public SMS()
+        {
+
+        }
+
         public int LineID { get => lineId; set => lineId = value; }
         public DateTime Month { get => month; set => month = value; }
         public string DestinationNum { get => destinationNum; set => destinationNum = value; }

@@ -15,5 +15,6 @@ namespace Invoice.Common
         // receipt
         Payment AddPayment(int clientID, DateTime month, double totalPayment);
         double GetMinutesLeft(int lineId, DateTime month);
+        double GetCallsPayment(int lineId, DateTime month);
     }
 }

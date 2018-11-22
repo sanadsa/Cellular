@@ -139,7 +139,6 @@ namespace CRM.DAL
             }
         }
 
-        // add Enurable<Line> in client class to delete all lines of the client 
         /// <summary>
         /// Delete client from db by client id
         /// </summary>
@@ -164,7 +163,6 @@ namespace CRM.DAL
             }
         }
 
-        // add Enurable<Package> in line class to delete all packages of the line
         /// <summary>
         /// Delete line from db by line id
         /// </summary>
@@ -174,8 +172,6 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
-                    //var line = context.Lines.Include(l => l.packages).Single(l => l.LineId == lineId);
-                    //context.Packages.RemoveRange(line.packages);
                     var line = context.Lines.Find(lineId);
                     context.Lines.Remove(line);
                     context.SaveChanges();

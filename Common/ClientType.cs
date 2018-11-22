@@ -28,6 +28,12 @@ namespace Common
             SmsPrice = smsPrice;
         }
 
+        // for ef
+        public ClientType()
+        {
+
+        }
+
         /// <summary>
         /// get and set for id, if value is nagetive throw exception
         /// </summary>

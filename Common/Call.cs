@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    public enum eCallTo
+    {
+        friends = 1,
+        family,
+        mostCalled
+    };
+
     public class Call
     {
         private int callId;
@@ -14,6 +21,7 @@ namespace Common
         private double duration;
         private DateTime month;
         private string destinationNum;
+        private eCallTo callTo;
 
         public Call(int lineId, double duration, DateTime month, string destination)
         {
@@ -32,5 +40,6 @@ namespace Common
         public double Duration { get => duration; set => duration = value; }
         public int CallId { get => callId; set => callId = value; }
         public Line Line { get => line; set => line = value; }
+        public eCallTo CallTo { get => callTo; set => callTo = value; }
     }
 }
