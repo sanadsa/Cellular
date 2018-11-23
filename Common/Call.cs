@@ -23,12 +23,13 @@ namespace Common
         private string destinationNum;
         private eCallTo callTo;
 
-        public Call(int lineId, double duration, DateTime month, string destination)
+        public Call(int lineId, double duration, DateTime month, string destination, eCallTo callTo)
         {
             LineID = lineId;
             Duration = duration;
             Month = month;
             DestinationNum = destination;
+            CallTo = callTo;
         }
 
         // for ef

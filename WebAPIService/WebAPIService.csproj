@@ -191,6 +191,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Api\CRMController.cs" />
     <Compile Include="Controllers\Api\InvoiceController.cs" />
+    <Compile Include="Controllers\Api\OptimalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

@@ -16,7 +16,26 @@ namespace Invoice.DAL
 
         public Call AddCall(Call call)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+
+                    var lineFromDb = context.Lines.SingleOrDefault(l => l.LineId == call.LineID);
+                    if (lineFromDb == null)
+                    {
+                        throw new Exception("Line not exits, choose another line id");
+                    }
+                    context.Calls.Add(call);
+                    context.SaveChanges();
+                    return call;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add call Dal error: " + e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public Payment AddPayment(Payment payment)
@@ -39,13 +58,32 @@ namespace Invoice.DAL
             catch (Exception e)
             {
                 log.LogWrite("Add payment Dal error: " + e.Message);
-                throw new Exception("Add payment exception: " + e.Message);
+                throw new Exception(e.Message);
             }
         }
 
         public SMS AddSms(SMS sms)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+
+                    var lineFromDb = context.Lines.SingleOrDefault(l => l.LineId == sms.LineID);
+                    if (lineFromDb == null)
+                    {
+                        throw new Exception("Line not exits, choose another line id");
+                    }
+                    context.SMS.Add(sms);
+                    context.SaveChanges();
+                    return sms;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add sms Dal error: " + e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public IEnumerable<SMS> GetAllSms(int lineId, int month)

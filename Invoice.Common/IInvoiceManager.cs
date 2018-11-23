@@ -10,7 +10,7 @@ namespace Invoice.Common
     public interface IInvoiceManager
     {
         // simulator
-        Call SimulateCall(int lineId, double duration, DateTime month, string destination);
+        Call SimulateCall(int lineId, double duration, DateTime month, string destination, eCallTo callTo);
         SMS SimulateSms(int lineId, DateTime month, string destinationNum);
         // receipt
         Payment AddPayment(int clientID, DateTime month, double totalPayment);

@@ -132,7 +132,7 @@ namespace Invoice.BL
                     }
                     else
                     {
-                        throw new Exception("sms: " + result.RequestMessage.ToString());
+                        throw new Exception("sms: " + result.Content.ReadAsStringAsync().Result);
                     }
                 }
 
@@ -195,7 +195,7 @@ namespace Invoice.BL
                     }
                     else
                     {
-                        throw new Exception(result.ToString());
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
                     }
                 }
             }
@@ -206,14 +206,60 @@ namespace Invoice.BL
             }
         }
 
-        public Call SimulateCall(int lineId, double duration, DateTime month, string destination)
+        public Call SimulateCall(int lineId, double duration, DateTime month, string destination, eCallTo callTo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var call = new Call(lineId, duration, month, destination, callTo);
+                    string json = JsonConvert.SerializeObject(call);
+                    var result = client.PostAsync("api/crm/call", new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        return JsonConvert.DeserializeObject<Call>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add call error: " + e.Message);
+                throw new Exception("Add call exception: " + e.Message);
+            }
         }
 
         public SMS SimulateSms(int lineId, DateTime month, string destinationNum)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var sms = new SMS(lineId, month, destinationNum);
+                    string json = JsonConvert.SerializeObject(sms);
+                    var result = client.PostAsync("api/crm/sms", new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        return JsonConvert.DeserializeObject<SMS>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add sms error: " + e.Message);
+                throw new Exception("Add sms exception: " + e.Message);
+            }
         }
 
     }

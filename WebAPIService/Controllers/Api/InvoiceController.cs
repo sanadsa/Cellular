@@ -30,7 +30,37 @@ namespace WebAPIService.Controllers.Api
             }
             catch (Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/crm/call")]
+        public HttpResponseMessage CreateCall([FromBody]Call call)
+        {
+            try
+            {
+                var c = DAL.AddCall(call);
+                return Request.CreateResponse(HttpStatusCode.OK, c);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/crm/sms")]
+        public HttpResponseMessage CreateSms([FromBody]SMS sms)
+        {
+            try
+            {
+                var s = DAL.AddSms(sms);
+                return Request.CreateResponse(HttpStatusCode.OK, s);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
 

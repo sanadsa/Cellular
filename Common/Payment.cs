@@ -21,6 +21,11 @@ namespace Common
             TotalPayment = totalPayment;
         }
 
+        public Payment()
+        {
+
+        }
+
         public int ID { get => paymentId; set => paymentId = value; }
         public int ClientID { get => clientId; set => clientId = value; }
         public DateTime Month { get => month; set => month = value; }
