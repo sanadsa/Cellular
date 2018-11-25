@@ -13,12 +13,10 @@ namespace WebAPIService.Controllers.Api
 {
     public class CRMController : ApiController
     {
-        private CrmDal crmDal;
         private readonly ICrmRepository DAL;
 
         public CRMController()
         {
-            crmDal = new CrmDal();
             DAL = new CrmDal();
         }
         
@@ -39,15 +37,16 @@ namespace WebAPIService.Controllers.Api
 
         [HttpPost]
         [Route("api/crm/client")]
-        public Client CreateClient([FromBody]Client client)
+        public HttpResponseMessage CreateClient([FromBody]Client client)
         {
             try
             {
-                return DAL.AddClient(client);
+                var clientResult = DAL.AddClient(client);
+                return Request.CreateResponse(HttpStatusCode.OK, clientResult);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
             }
         }
 
@@ -128,7 +127,7 @@ namespace WebAPIService.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("api/crm/client/d/{clientId}")]
+        [Route("api/crm/delete/{clientId}")]
         public void DeleteClient(int clientId)
         {
             try
@@ -152,6 +151,34 @@ namespace WebAPIService.Controllers.Api
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+
+        [Route("api/crm/clients")]
+        public HttpResponseMessage GetClients()
+        {
+            try
+            {
+                var clients = DAL.GetClients();
+                return Request.CreateResponse(HttpStatusCode.OK, clients);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
+        [Route("api/crm/types")]
+        public HttpResponseMessage GetClientTypes()
+        {
+            try
+            {
+                var clients = DAL.GetClientTypes();
+                return Request.CreateResponse(HttpStatusCode.OK, clients);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
             }
         }
 

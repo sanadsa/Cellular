@@ -85,6 +85,10 @@
       <Project>{234E05FB-1249-4C72-ACA8-EC19E25725A8}</Project>
       <Name>Invoice.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Optimal.BL\Optimal.BL.csproj">
+      <Project>{B1F5A5C0-62DB-4C3F-9857-D59E36B166B8}</Project>
+      <Name>Optimal.BL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

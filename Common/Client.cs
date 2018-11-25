@@ -166,6 +166,13 @@ namespace Common
             {
                 try
                 {
+                    foreach (char c in value)
+                    {
+                        if (c < '0' || c > '9')
+                        {
+                            throw new Exception("enter digits only");
+                        }
+                    }
                     contactNumber = value;
                 }
                 catch (Exception ex)
@@ -187,7 +194,7 @@ namespace Common
             {
                 try
                 {
-                    if (value > 0)
+                    if (value >= 0)
                     {
                         callsToCenter = value;
                     }

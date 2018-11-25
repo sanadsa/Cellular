@@ -43,5 +43,11 @@
     <Compile Include="OptimalDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Optimal.Common\Optimal.Common.csproj">
+      <Project>{11ECC73F-BD4F-4586-9012-8286ACEB19C4}</Project>
+      <Name>Optimal.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,11 +2,13 @@
 using CRM.Common.Interfaces;
 using Common;
 using DAL;
-using System.Data.Entity.Validation;
 using Log;
 using System.Linq;
-using System.Reflection;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Http;
+using System.Net.Http;
 
 namespace CRM.DAL
 {
@@ -325,9 +327,9 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
-                    // var agentFromDb = context.ServiceAgents.SingleOrDefault(a => (a.AgentName == name && a.Password == password));
-                    var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name && Password=@Pass", new SqlParameter("@Name", name), new SqlParameter("@Pass", password))
-                    .FirstOrDefault();
+                    var agentFromDb = context.ServiceAgents.SingleOrDefault(a => (a.AgentName == name && a.Password == password));
+                    //var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name && Password=@Pass", new SqlParameter("@Name", name), new SqlParameter("@Pass", password))
+                    //.FirstOrDefault();
                     
                     if (agentFromDb == null)
                     {
@@ -344,6 +346,50 @@ namespace CRM.DAL
                 log.LogWrite("Get agent error: " + e.Message);
                 throw new Exception("Get agent exception: " + e.Message);
             }
-        }       
+        }
+
+        public List<Client> GetClients()
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var clients = context.Clients.ToList();
+                    if (clients == null)
+                    {
+                        throw new Exception("no clients found");
+                    }
+
+                    return clients;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get clients Dal error: " + e.Message);
+                throw new Exception("Get clients exception: " + e.Message);
+            }
+        }
+
+        public List<ClientType> GetClientTypes()
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var types = context.ClientTypes.ToList();
+                    if (types == null)
+                    {
+                        throw new Exception("no types found");
+                    }
+
+                    return types;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get client types Dal error: " + e.Message);
+                throw new Exception("Get client types exception: " + e.Message);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using Common;
 using CRM.Common.Interfaces;
@@ -69,7 +70,7 @@ namespace CRM.BL
                     }
                     else
                     {
-                        return null;
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
                     }
                 }
             }
@@ -288,8 +289,8 @@ namespace CRM.BL
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(url);
-                    var result = client.DeleteAsync("api/crm/client/d/" + clientId);
-                    if (!result.IsCompleted)
+                    var result = client.DeleteAsync("api/crm/delete/" + clientId).Result;
+                    if (!result.IsSuccessStatusCode)
                     {
                         throw new Exception("Failed to delete client " + clientId);
                     }
@@ -330,28 +331,92 @@ namespace CRM.BL
         /// Calls the server using http to check if the agent exists to login
         /// gets name and password from ui
         /// </summary>
-        public void LoginAgent(string name, string password)
+        public ServiceAgent LoginAgent(string name, string password)
         {
+            ServiceAgent agent;
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(url);
-                    var result = client.GetAsync("api/crm/agent" + name + "/" + password).Result;
+                    var result = client.GetAsync("api/crm/agent/" + name + "/" + password).Result;
                     if (result.IsSuccessStatusCode)
                     {
                         string response = result.Content.ReadAsStringAsync().Result;
+                        agent = JsonConvert.DeserializeObject<ServiceAgent>(response);
                     }
                     else
                     {
-                        throw new Exception("Get Agent api error");
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
                     }
                 }
+
+                return agent;
             }
             catch (Exception e)
             {
                 log.LogWrite("Get agent error: " + e.Message);
                 throw new Exception("Get agent exception: " + e.Message);
+            }
+        }
+
+        public List<Client> GetClients()
+        {
+            List<Client> customers;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.GetAsync("api/crm/clients").Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        customers = JsonConvert.DeserializeObject<List<Client>>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+                }
+
+                return customers;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get clients error: " + e.Message);
+                throw new Exception("Get clients exception: " + e.Message);
+            }
+        }
+
+        public List<ClientType> GetClientTypes()
+        {
+            List<ClientType> types;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.GetAsync("api/crm/types").Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        types = JsonConvert.DeserializeObject<List<ClientType>>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+                }
+
+                return types;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get client types error: " + e.Message);
+                throw new Exception("Get client types exception: " + e.Message);
             }
         }
     }

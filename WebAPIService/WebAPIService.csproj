@@ -307,6 +307,14 @@
       <Project>{234e05fb-1249-4c72-aca8-ec19e25725a8}</Project>
       <Name>Invoice.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Optimal.Common\Optimal.Common.csproj">
+      <Project>{11ecc73f-bd4f-4586-9012-8286aceb19c4}</Project>
+      <Name>Optimal.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Optimal.DAL\Optimal.DAL.csproj">
+      <Project>{0769113f-ec7e-4cbe-ba1a-375beb27284b}</Project>
+      <Name>Optimal.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

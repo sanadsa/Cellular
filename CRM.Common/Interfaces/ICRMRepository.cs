@@ -16,6 +16,8 @@ namespace CRM.Common.Interfaces
         Client AddClient(Client client);
         Client UpdateClient(Client newClient, int clientId);
         void DeleteClient(int clientId);
+        List<Client> GetClients();
+        List<ClientType> GetClientTypes();
         // service agent
         ServiceAgent AddServiceAgent(ServiceAgent agent);
         ServiceAgent UpdateServiceAgent(ServiceAgent newAgent, int agentId);

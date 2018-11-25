@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Optimal.Common
 {
-    interface IOptimalRepository
+    public interface IOptimalRepository
     {
+        int GetNumberOfLines(int clientId);
+        double GetRecieptsSum(int clientId);
+        int GetCallsToCenter(int clientId);
     }
 }
