@@ -391,5 +391,30 @@ namespace CRM.DAL
                 throw new Exception("Get client types exception: " + e.Message);
             }
         }
+
+        /// <summary>
+        /// get all lines of client by its id from DB
+        /// </summary>
+        public List<Line> GetLines(int clientId)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var lines = context.Lines.Where(l => l.ClientId == clientId).ToList();
+                    if (lines == null)
+                    {
+                        throw new Exception("no lines found");
+                    }
+
+                    return lines;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get lines Dal error: " + e.Message);
+                throw new Exception("Get lines exception: " + e.Message);
+            }
+        }
     }
 }

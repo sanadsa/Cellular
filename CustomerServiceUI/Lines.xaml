@@ -1,0 +1,45 @@
+﻿<Page x:Class="CustomerServiceUI.Lines"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CustomerServiceUI"
+      xmlns:ViewModels="clr-namespace:CustomerServiceUI.ViewModels" 
+      mc:Ignorable="d"
+      Title="Line" Height="566" Width="618">
+
+    <Page.DataContext>
+        <ViewModels:LineViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Label Content="Client Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="202,10,0,0" RenderTransformOrigin="0.245,0.5"/>
+        <Label Content="Select Line" HorizontalAlignment="Left" Margin="147,63,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" HorizontalAlignment="Left" Margin="239,63,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273">
+        </ComboBox>
+        <Label Content="Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="147,103,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="239,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Add Client" HorizontalAlignment="Left" Margin="99,515,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="242,515,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="385,515,0,0" VerticalAlignment="Top" Width="76"/>
+        <CheckBox Content="Package" HorizontalAlignment="Left" Margin="34,146,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="Package" HorizontalAlignment="Left" Height="302" Margin="34,182,0,0" VerticalAlignment="Top" Width="531">
+            <Grid>
+                <Label Content="Select Package" HorizontalAlignment="Left" Margin="21,24,0,0" VerticalAlignment="Top"/>
+                <ComboBox HorizontalAlignment="Left" Margin="133,28,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273"/>
+                <Label Content="Minutes" HorizontalAlignment="Left" Margin="21,82,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="95,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Price" HorizontalAlignment="Left" Margin="246,82,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="301,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <CheckBox Content="Family Discount" HorizontalAlignment="Left" Margin="21,124,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Friends" HorizontalAlignment="Left" Margin="21,159,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="385,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="246,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="105,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <CheckBox Content="Favorite Number" HorizontalAlignment="Left" Margin="21,192,0,0" VerticalAlignment="Top"/>
+                <Label Content="Total Price" HorizontalAlignment="Left" Margin="95,228,0,0" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="173,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

@@ -6,19 +6,19 @@
       xmlns:local="clr-namespace:CustomerServiceUI"
       xmlns:ViewModels="clr-namespace:CustomerServiceUI.ViewModels" x:Class="CustomerServiceUI.Customer"
       mc:Ignorable="d"
-      Title="Customer" Height="318" Width="493">
+      Title="Customer" Height="372" Width="499">
 
     <Page.DataContext>
         <ViewModels:CustomerViewModel/>
     </Page.DataContext>
 
     <Grid>
-        <Button Command="{Binding SaveCommand}" Content="Save" HorizontalAlignment="Left" Margin="80,288,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
-        <Button Command="{Binding DeleteCommand}" Content="Delete" HorizontalAlignment="Left" Margin="223,288,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Command="{Binding SaveCommand}" Content="Add" HorizontalAlignment="Left" Margin="55,288,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Command="{Binding DeleteCommand}" Content="Delete" HorizontalAlignment="Left" Margin="261,288,0,0" VerticalAlignment="Top" Width="76"/>
         <Button Command="{Binding ClearCommand}" Content="Clear" HorizontalAlignment="Left" Margin="366,288,0,0" VerticalAlignment="Top" Width="76"/>
         <Label Content="Client Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="202,10,0,0" RenderTransformOrigin="0.245,0.5"/>
         <Label Content="Select By ID" HorizontalAlignment="Left" Margin="34,67,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" HorizontalAlignment="Left" Margin="126,67,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273">
+        <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" HorizontalAlignment="Left" Margin="126,67,0,0" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.375,-0.273">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -34,11 +34,11 @@
         <Label Content="Last Name" HorizontalAlignment="Left" Margin="261,110,0,0" VerticalAlignment="Top"/>
         <TextBox  Text="{Binding SelectedClient.LastName}" HorizontalAlignment="Left" Height="23" Margin="346,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="ID" HorizontalAlignment="Left" Margin="45,155,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding SelectedClient.IdNumber}" HorizontalAlignment="Left" Height="23" Margin="106,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding SelectedId}" HorizontalAlignment="Left" Height="23" Margin="106,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Address" HorizontalAlignment="Left" Margin="261,155,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding SelectedClient.Address}" HorizontalAlignment="Left" Height="23" Margin="346,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="45,202,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding ClientTypes}" SelectedItem="{Binding SelectedType}" HorizontalAlignment="Left" Margin="106,203,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273">
+        <Label Content="Type" HorizontalAlignment="Left" Margin="45,205,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding ClientTypes}" SelectedItem="{Binding SelectedType}" HorizontalAlignment="Left" Margin="106,206,0,0" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.375,-0.273">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -47,9 +47,12 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <TextBox IsEnabled="False" Text="{Binding SelectedClient.ClientTypeId}" HorizontalAlignment="Left" Height="23" Margin="176,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
         <Label Content="Contact Num" HorizontalAlignment="Left" Margin="261,202,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding SelectedClient.ContactNumber}" HorizontalAlignment="Left" Height="23" Margin="346,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="{Binding Error}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,242,0,0"/>
+        <Label Content="{Binding Error}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,246,0,0"/>
+        <Button Command="{Binding UpdateCommand}" Content="Update" HorizontalAlignment="Left" Margin="165,288,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Tag="{Binding SelectedClient.ClientID}" Content="Lines" HorizontalAlignment="Left" Margin="212,342,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
 
     </Grid>
 </Page>

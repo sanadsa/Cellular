@@ -30,11 +30,6 @@ namespace CustomerServiceUI
             NavigationService.Navigate(new Customer());
         }
 
-        private void Lines_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Line());
-        }
-
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Simulator());

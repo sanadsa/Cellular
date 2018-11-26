@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomerServiceUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,14 @@ namespace CustomerServiceUI
     /// <summary>
     /// Interaction logic for Line.xaml
     /// </summary>
-    public partial class Line : Page
+    public partial class Lines : Page
     {
-        public Line()
+        public LineViewModel viewModel { get; set; }
+       
+        public Lines(int clientId)
         {
             InitializeComponent();
+            //viewModel.ClientId = clientId;
         }
     }
 }

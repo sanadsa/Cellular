@@ -168,6 +168,27 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get lines of the client - from dal 
+        /// </summary>
+        [Route("api/crm/lines/{clientId}")]
+        public HttpResponseMessage GetLines(int clientId)
+        {
+            try
+            {
+                var lines = DAL.GetLines(clientId);
+                return Request.CreateResponse(HttpStatusCode.OK, lines);
+            }
+            catch (HttpResponseException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
         [Route("api/crm/types")]
         public HttpResponseMessage GetClientTypes()
         {

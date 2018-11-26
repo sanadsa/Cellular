@@ -54,8 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Line.xaml.cs">
-      <DependentUpon>Line.xaml</DependentUpon>
+    <Compile Include="Lines.xaml.cs">
+      <DependentUpon>Lines.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -65,12 +65,13 @@
     </Compile>
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
+    <Compile Include="ViewModels\LineViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Customer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Line.xaml">
+    <Page Include="Lines.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -27,6 +27,7 @@ namespace CRM.Common.Interfaces
         //Line UpdateLine(Line newLine, int lineId);
         Line UpdateLine(int lineId, eStatus status);
         void DeleteLine(int lineId);
+        List<Line> GetLines(int clientId);
         // package
         Package AddPackage(Package package);
         Package UpdatePackage(Package newPackage, int packageId);

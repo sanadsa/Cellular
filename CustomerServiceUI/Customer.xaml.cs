@@ -29,5 +29,10 @@ namespace CustomerServiceUI
         {
 
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Lines(Convert.ToInt32(((Button)sender).Tag)));
+        }
     }
 }

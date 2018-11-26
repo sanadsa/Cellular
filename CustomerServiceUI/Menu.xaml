@@ -9,8 +9,7 @@
 
     <Grid>
         <Button Content="Customer" HorizontalAlignment="Left" Margin="150,67,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Button_Click"/>
-        <Button Content="Lines" HorizontalAlignment="Left" Margin="150,136,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Lines_Click"/>
-        <Button Content="Simulator" HorizontalAlignment="Left" Margin="150,211,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Simulator_Click"/>
+        <Button Content="Simulator" HorizontalAlignment="Left" Margin="150,155,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Simulator_Click"/>
 
     </Grid>
 </Page>

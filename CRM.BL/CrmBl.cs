@@ -304,7 +304,7 @@ namespace CRM.BL
         }
 
         /// <summary>
-        /// Calls the serve using http and delete the client by its id
+        /// Calls the server using http and delete the client by its id
         /// </summary>
         public void DeleteLine(int lineId)
         {
@@ -417,6 +417,39 @@ namespace CRM.BL
             {
                 log.LogWrite("Get client types error: " + e.Message);
                 throw new Exception("Get client types exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get all lines of client id
+        /// </summary>
+        public List<Line> GetClientLines(int clientId)
+        {
+            List<Line> lines;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.GetAsync("api/crm/lines/"+clientId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        lines = JsonConvert.DeserializeObject<List<Line>>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+                }
+
+                return lines;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get lines error: " + e.Message);
+                throw new Exception("Get lines exception: " + e.Message);
             }
         }
     }

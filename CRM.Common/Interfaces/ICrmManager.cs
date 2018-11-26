@@ -25,6 +25,7 @@ namespace CRM.Common.Interfaces
         Line AddLine(int clientId, string number, eStatus status);
         Line UpdateLineStatus(int lineId, eStatus status);
         void DeleteLine(int lineId);
+        List<Line> GetClientLines(int clientId);
         // package
         Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
             double discount, int favoritNumId, bool mostCalled, bool famDis);
