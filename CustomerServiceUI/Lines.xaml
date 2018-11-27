@@ -6,39 +6,53 @@
       xmlns:local="clr-namespace:CustomerServiceUI"
       xmlns:ViewModels="clr-namespace:CustomerServiceUI.ViewModels" 
       mc:Ignorable="d"
-      Title="Line" Height="566" Width="618">
+      Title="Line" Height="628.755" Width="601.104">
 
     <Page.DataContext>
         <ViewModels:LineViewModel/>
     </Page.DataContext>
 
     <Grid>
-        <Label Content="Client Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="202,10,0,0" RenderTransformOrigin="0.245,0.5"/>
-        <Label Content="Select Line" HorizontalAlignment="Left" Margin="147,63,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" HorizontalAlignment="Left" Margin="239,63,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273">
+        <StackPanel>
+            <Label Content="Line Information" FontSize="25" HorizontalAlignment="Center"/>
+            <Label Content="Select line to edit or enter number to add new one" FontSize="15" HorizontalAlignment="Center"/>
+            <Separator/>
+        </StackPanel>
+        <Label Content="Select Line" HorizontalAlignment="Left" Margin="171,116,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding ClientLines}" SelectedItem="{Binding SelectedLine}" HorizontalAlignment="Left" Margin="252,116,0,0" VerticalAlignment="Top" Width="143" RenderTransformOrigin="0.375,-0.273">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Number}"></TextBlock>
+                        <TextBlock Text="-"></TextBlock>
+                        <TextBlock Text="{Binding Status}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="147,103,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="239,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Add Client" HorizontalAlignment="Left" Margin="99,515,0,0" VerticalAlignment="Top" Width="76"/>
-        <Button Content="Delete" HorizontalAlignment="Left" Margin="242,515,0,0" VerticalAlignment="Top" Width="76"/>
-        <Button Content="Clear" HorizontalAlignment="Left" Margin="385,515,0,0" VerticalAlignment="Top" Width="76"/>
-        <CheckBox Content="Package" HorizontalAlignment="Left" Margin="34,146,0,0" VerticalAlignment="Top"/>
-        <GroupBox Header="Package" HorizontalAlignment="Left" Height="302" Margin="34,182,0,0" VerticalAlignment="Top" Width="531">
+        <Label Content="Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,156,0,0"/>
+        <TextBox Text="{Binding SelectedLine.Number}" Name="txtNumber" HorizontalAlignment="Left" Height="23" Margin="252,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <Button Command="{Binding AddCommand}" Content="Add Line" HorizontalAlignment="Left" Margin="76,557,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Update" HorizontalAlignment="Left" Margin="192,557,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="300,557,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Command="{Binding ClearCommand}" Content="Clear" HorizontalAlignment="Left" Margin="422,557,0,0" VerticalAlignment="Top" Width="76"/>
+        <CheckBox IsChecked="{Binding IsPackage}" Content="Package" HorizontalAlignment="Left" Margin="34,193,0,0" VerticalAlignment="Top"/>
+        <GroupBox IsEnabled="{Binding IsPackage}" Name="grpPackage" Header="Package" HorizontalAlignment="Left" Height="302" Margin="34,227,0,0" VerticalAlignment="Top" Width="531">
             <Grid>
-                <Label Content="Select Package" HorizontalAlignment="Left" Margin="21,24,0,0" VerticalAlignment="Top"/>
-                <ComboBox HorizontalAlignment="Left" Margin="133,28,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.375,-0.273"/>
+                <Label Content="Select Template Package" HorizontalAlignment="Left" Margin="21,24,0,0" VerticalAlignment="Top"/>
+                <ComboBox HorizontalAlignment="Left" Margin="173,28,0,0" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.375,-0.273"/>
                 <Label Content="Minutes" HorizontalAlignment="Left" Margin="21,82,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="95,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Text="{Binding SelectedPackage.MaxMinute}" HorizontalAlignment="Left" Height="23" Margin="95,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Price" HorizontalAlignment="Left" Margin="246,82,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="301,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <CheckBox Content="Family Discount" HorizontalAlignment="Left" Margin="21,124,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Friends" HorizontalAlignment="Left" Margin="21,159,0,0" VerticalAlignment="Top"/>
+                <TextBox Text="{Binding SelectedPackage.MinutePrice}" HorizontalAlignment="Left" Height="23" Margin="301,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <CheckBox IsChecked="{Binding SelectedPackage.FamilyDiscount}" Content="Family Discount" HorizontalAlignment="Left" Margin="21,124,0,0" VerticalAlignment="Top"/>
+                <CheckBox IsChecked="{Binding SelectedPackage.FavoriteNumber}" Content="Friends" HorizontalAlignment="Left" Margin="21,159,0,0" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="385,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="246,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox HorizontalAlignment="Left" Height="23" Margin="105,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <CheckBox Content="Favorite Number" HorizontalAlignment="Left" Margin="21,192,0,0" VerticalAlignment="Top"/>
+                <CheckBox IsChecked="{Binding SelectedPackage.MostCalledNums}" Content="Favorite Number" HorizontalAlignment="Left" Margin="21,192,0,0" VerticalAlignment="Top"/>
                 <Label Content="Total Price" HorizontalAlignment="Left" Margin="95,228,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="23" Margin="173,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox IsEnabled="False" Text="{Binding SelectedPackage.TotalPrice}" HorizontalAlignment="Left" Height="23" Margin="173,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             </Grid>
         </GroupBox>
     </Grid>

@@ -31,12 +31,11 @@ namespace Test
                 //var agent = bl.AddServiceAgent("Omer", "111");
                 var newagent = new ServiceAgent("Iron", "3456");
                 var client = new Client("hds", "ss", 5555, 3, "yaffo", "0546", 5);
-                var package = new Package("pp", 3, 50, new DateTime(2000, 11, 10), 120, 150, 0.3, 1, false, false);
-                var lines = bl.GetClientLines(1);
-                foreach (var item in lines)
-                {
-                    Console.WriteLine(item.Number);
-                }
+                var package = new Package("pp", 11, 50, new DateTime(2000, 11, 10), 120, 150, 0.3, true, false, false);
+
+                test.AddPackage(package);
+                //var lines = bl.GetClientLines(1);
+                
                 // invoiceBl.AddPayment(1, new DateTime(2000, 11, 20), 150);
                 //Console.WriteLine(invoiceRepository.GetClientType(4).Id);
                 //Console.WriteLine(invoiceBl.GetCallsPayment(4, new DateTime(2000, 11, 10)));

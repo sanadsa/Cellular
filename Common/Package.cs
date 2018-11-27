@@ -25,8 +25,7 @@ namespace Common
         private int maxMinute;
         private double minutePrice;
         private double discountPercentage;
-        private int mostCalledId;
-        private MostCalled mostCalled;
+        private bool favoriteNumber;
         private bool mostCalledNums;
         private bool familyDiscount;
         // sales cost
@@ -46,8 +45,8 @@ namespace Common
         /// <param name="favoritNumId">id of the numbers that have dicsount (3 numbers)</param>
         /// <param name="mostCalled">third sale - discount for most called number (bool)</param>
         /// <param name="famDis">fourth sale - discount for the family(lines for same client)</param>
-        public Package(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
-            double discount, int favoritNumId, bool mostCalled, bool famDis)
+        public Package(string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice,
+            double discount,bool favoriteNum, bool mostCalled, bool famDis)
         {
             PackageName = name;
             LineId = lineId;
@@ -56,7 +55,7 @@ namespace Common
             MaxMinute = maxMinute;
             MinutePrice = minutePrice;
             DiscountPercentage = discount;
-            FavoriteNumId = favoritNumId;
+            FavoriteNumber = favoriteNum;
             MostCalledNums = mostCalled;
             FamilyDiscount = famDis;
         }
@@ -67,19 +66,17 @@ namespace Common
 
         }
 
-        // TO DO: documentation + checking and exception and log for each property
         public string PackageName { get => packageName; set => packageName = value; }
         public int LineId { get => lineId; set => lineId = value; }
         public double TotalPrice { get => totalPrice; set => totalPrice = value; }
         public int MaxMinute { get => maxMinute; set => maxMinute = value; }
         public double DiscountPercentage { get => discountPercentage; set => discountPercentage = value; }
-        public int FavoriteNumId { get => mostCalledId; set => mostCalledId = value; }
         public bool MostCalledNums { get => mostCalledNums; set => mostCalledNums = value; }
         public bool FamilyDiscount { get => familyDiscount; set => familyDiscount = value; }
         public double MinutePrice { get => minutePrice; set => minutePrice = value; }
         public int PackageId { get => packageId; set => packageId = value; }
         public DateTime Month { get => month; set => month = value; }
         public Line Line { get => line; set => line = value; }
-        public MostCalled MostCalled { get => mostCalled; set => mostCalled = value; }
+        public bool FavoriteNumber { get => favoriteNumber; set => favoriteNumber = value; }
     }
 }

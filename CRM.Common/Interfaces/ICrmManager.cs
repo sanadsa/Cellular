@@ -27,9 +27,10 @@ namespace CRM.Common.Interfaces
         void DeleteLine(int lineId);
         List<Line> GetClientLines(int clientId);
         // package
-        Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
-            double discount, int favoritNumId, bool mostCalled, bool famDis);
-        Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice,
-            double discount, int favoritNumId, bool mostCalled, bool famDis);
+        Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice,
+            double discount, bool favoriteNum, bool mostCalled, bool famDis);
+        Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice,
+            double discount, bool favoriteNum, bool mostCalled, bool famDis);
+        Package GetPackage(int lineId);
     }
 }

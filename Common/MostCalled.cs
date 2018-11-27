@@ -9,12 +9,15 @@ namespace Common
     public class MostCalled
     {
         private int mostCalledId;
+        private Package package;
+        private int packageId;
         private string firstNumber;
         private string secondNumber;
         private string thirdNumber;
 
-        public MostCalled(string num1, string num2, string num3)
+        public MostCalled(int packageId, string num1, string num2, string num3)
         {
+            PackageId = packageId;
             FirstNumber = num1;
             SecondNumber = num2;
             ThirdNumber = num3;
@@ -24,5 +27,7 @@ namespace Common
         public string SecondNumber { get => secondNumber; set => secondNumber = value; }
         public string ThirdNumber { get => thirdNumber; set => thirdNumber = value; }
         public int MostCalledId { get => mostCalledId; set => mostCalledId = value; }
+        public int PackageId { get => packageId; set => packageId = value; }
+        public Package Package { get => package; set => package = value; }
     }
 }

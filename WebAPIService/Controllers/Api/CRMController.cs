@@ -27,7 +27,6 @@ namespace WebAPIService.Controllers.Api
             try
             {
                 return DAL.AddServiceAgent(agent);
-                //return crmDal.AddServiceAgent(agent);
             }
             catch (Exception e)
             {
@@ -50,31 +49,44 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// adds line to db, throw exception if client id not found or number exists
+        /// </summary>
         [HttpPost]
         [Route("api/crm/line")]
-        public Line CreateLine([FromBody]Line line)
+        public HttpResponseMessage CreateLine([FromBody]Line line)
         {
             try
             {
-                return DAL.AddLine(line);
+                var l = DAL.AddLine(line);
+                return Request.CreateResponse(HttpStatusCode.OK, l);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                throw new Exception(e.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, e.Message);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch(Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
 
         [HttpPost]
         [Route("api/crm/package")]
-        public Package CreatePackage([FromBody]Package package)
+        public HttpResponseMessage CreatePackage([FromBody]Package package)
         {
             try
             {
-                return DAL.AddPackage(package);
+                var p = DAL.AddPackage(package);
+                return Request.CreateResponse(HttpStatusCode.OK, p);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
 
@@ -178,6 +190,27 @@ namespace WebAPIService.Controllers.Api
             {
                 var lines = DAL.GetLines(clientId);
                 return Request.CreateResponse(HttpStatusCode.OK, lines);
+            }
+            catch (HttpResponseException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get package by line id - from dal
+        /// </summary>
+        [Route("api/crm/package/{lineId}")]
+        public HttpResponseMessage GetPackage(int lineId)
+        {
+            try
+            {
+                var package = DAL.GetPackage(lineId);
+                return Request.CreateResponse(HttpStatusCode.OK, package);
             }
             catch (HttpResponseException e)
             {

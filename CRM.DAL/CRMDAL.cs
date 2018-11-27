@@ -95,11 +95,11 @@ namespace CRM.DAL
                     var clientFromDb = context.Clients.SingleOrDefault(c => c.ClientID == line.ClientId);
                     if (clientFromDb == null)
                     {
-                        throw new Exception("Client not exits, choose another client id");
+                        throw new KeyNotFoundException("Client not exits, choose another client id");
                     }
                     if (lineNumber != null)
                     {
-                        throw new Exception("Number associated to other line, choose another number");
+                        throw new ArgumentException("Number associated to other line, choose another number");
                     }
                     context.Lines.Add(line);
                     context.SaveChanges();
@@ -109,7 +109,7 @@ namespace CRM.DAL
             catch (Exception e)
             {
                 log.LogWrite("Add line Dal error: " + e.Message);
-                throw new Exception("Add line exception: " + e.Message);
+                throw new Exception(e.Message);
             }
         }
 
@@ -125,9 +125,14 @@ namespace CRM.DAL
                 using (CellularModel context = new CellularModel())
                 {
                     var lineFromDb = context.Lines.SingleOrDefault(l => l.LineId == package.LineId);
+                    var lineIdFromPackage = context.Packages.SingleOrDefault(l => l.LineId == package.LineId);
                     if (lineFromDb == null)
                     {
                         throw new Exception("Line not exits, choose another line id");
+                    }
+                    if (lineIdFromPackage != null)
+                    {
+                        throw new Exception("Line connected to other package, choose another line id");
                     }
                     context.Packages.Add(package);
                     context.SaveChanges();
@@ -269,11 +274,9 @@ namespace CRM.DAL
                     }
                     packInDb.DiscountPercentage = newPackage.DiscountPercentage;
                     packInDb.FamilyDiscount = newPackage.FamilyDiscount;
-                    packInDb.FavoriteNumId = newPackage.FavoriteNumId;
                     packInDb.MaxMinute = newPackage.MaxMinute;
                     packInDb.MinutePrice = newPackage.MinutePrice;
                     packInDb.Month = newPackage.Month;
-                    packInDb.MostCalled = newPackage.MostCalled;
                     packInDb.MostCalledNums = newPackage.MostCalledNums;
                     packInDb.TotalPrice = newPackage.TotalPrice;
 
@@ -414,6 +417,31 @@ namespace CRM.DAL
             {
                 log.LogWrite("Get lines Dal error: " + e.Message);
                 throw new Exception("Get lines exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get package from db by line id
+        /// </summary>
+        public Package GetPackage(int lineId)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var pacakge = context.Packages.SingleOrDefault(p => p.LineId == lineId);
+                    if (pacakge == null)
+                    {
+                        throw new Exception("no package found");
+                    }
+
+                    return pacakge;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get package Dal error: " + e.Message);
+                throw new Exception("Get package exception: " + e.Message);
             }
         }
     }

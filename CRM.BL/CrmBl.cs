@@ -103,7 +103,7 @@ namespace CRM.BL
                     }
                     else
                     {
-                        return null;
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
                     }
                 }
             }
@@ -118,14 +118,14 @@ namespace CRM.BL
         /// gets the package params from ui and calls the add package in server using http
         /// </summary>
         /// <returns>if succeeded return the package, if not throws exception</returns>
-        public Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice, double discount, int favoritNumId, bool mostCalled, bool famDis)
+        public Package AddPackage(string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice, double discount, bool favoriteNum, bool mostCalled, bool famDis)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(url);
-                    var package = new Package(name, lineId, price, month, maxMinute, minutePrice, discount, favoritNumId, mostCalled, famDis);
+                    var package = new Package(name, lineId, price, month, maxMinute, minutePrice, discount, favoriteNum, mostCalled, famDis);
                     string json = JsonConvert.SerializeObject(package);
                     var result = client.PostAsync("api/crm/package", new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
 
@@ -136,7 +136,7 @@ namespace CRM.BL
                     }
                     else
                     {
-                        return null;
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
                     }
                 }
             }
@@ -250,14 +250,14 @@ namespace CRM.BL
         /// update package fields - gets the updated package params from ui and calls the server using http
         /// </summary>
         /// <returns>if succeeded return the package, if not throws exception</returns>
-        public Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, int minutePrice, double discount, int favoritNumId, bool mostCalled, bool famDis)
+        public Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice, double discount, bool favoriteNum, bool mostCalled, bool famDis)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(url);
-                    var package = new Package(name, lineId, price, month, maxMinute, minutePrice, discount, favoritNumId, mostCalled, famDis);
+                    var package = new Package(name, lineId, price, month, maxMinute, minutePrice, discount, favoriteNum, mostCalled, famDis);
                     string json = JsonConvert.SerializeObject(package);
                     var result = client.PutAsync("api/crm/package/" + packageId, new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
 
@@ -450,6 +450,40 @@ namespace CRM.BL
             {
                 log.LogWrite("Get lines error: " + e.Message);
                 throw new Exception("Get lines exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get package by line id
+        /// </summary>
+        public Package GetPackage(int lineId)
+        {
+            Package package;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+
+                    var result = client.GetAsync("api/crm/package/" + lineId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        package = JsonConvert.DeserializeObject<Package>(response);
+                    }
+                    else
+                    {
+                        //throw new Exception(result.Content.ReadAsStringAsync().Result);
+                        return null;
+                    }
+                }
+
+                return package;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get packacge error: " + e.Message);
+                throw new Exception("Get package exception: " + e.Message);
             }
         }
     }

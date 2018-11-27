@@ -130,33 +130,5 @@ namespace Common
 
         public int LineId { get => lineId; set => lineId = value; }
         public Client Client { get => client; set => client = value; }
-
-        ///// <summary>
-        ///// get package id
-        ///// set package id - if value is negative throw exception
-        ///// </summary>
-        //public int PackageId
-        //{
-        //    get { return packageId; }
-        //    set
-        //    {
-        //        try
-        //        {
-        //            if (value > 0)
-        //            {
-        //                packageId = value;
-        //            }
-        //            else
-        //            {
-        //                throw new Exception("value must be non-negative");
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            log.LogWrite("Assigning packageId error: " + ex.Message);
-        //            throw new Exception("Assigning packageId error: " + ex.Message);
-        //        }
-        //    }
-        //}
     }
 }

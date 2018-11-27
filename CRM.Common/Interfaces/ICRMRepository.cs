@@ -31,5 +31,6 @@ namespace CRM.Common.Interfaces
         // package
         Package AddPackage(Package package);
         Package UpdatePackage(Package newPackage, int packageId);
+        Package GetPackage(int lineId);
     }
 }

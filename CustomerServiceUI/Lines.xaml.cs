@@ -21,12 +21,11 @@ namespace CustomerServiceUI
     /// </summary>
     public partial class Lines : Page
     {
-        public LineViewModel viewModel { get; set; }
-       
-        public Lines(int clientId)
+        public static int ClientID { get; private set; }
+        public Lines(int id)
         {
+            ClientID = id;
             InitializeComponent();
-            //viewModel.ClientId = clientId;
         }
     }
 }

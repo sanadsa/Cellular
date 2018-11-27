@@ -25,11 +25,6 @@ namespace CustomerServiceUI
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Lines(Convert.ToInt32(((Button)sender).Tag)));

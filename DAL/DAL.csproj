@@ -58,6 +58,18 @@
     <Compile Include="Migrations\201811211635072_addCallToInCallTable.Designer.cs">
       <DependentUpon>201811211635072_addCallToInCallTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811271719264_DeleteMostCalledID.cs" />
+    <Compile Include="Migrations\201811271719264_DeleteMostCalledID.Designer.cs">
+      <DependentUpon>201811271719264_DeleteMostCalledID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811271735096_AddPropertyFavoriteNumber.cs" />
+    <Compile Include="Migrations\201811271735096_AddPropertyFavoriteNumber.Designer.cs">
+      <DependentUpon>201811271735096_AddPropertyFavoriteNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811271748083_AddPackageidToMostCalled.cs" />
+    <Compile Include="Migrations\201811271748083_AddPackageidToMostCalled.Designer.cs">
+      <DependentUpon>201811271748083_AddPackageidToMostCalled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +89,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811211635072_addCallToInCallTable.resx">
       <DependentUpon>201811211635072_addCallToInCallTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271719264_DeleteMostCalledID.resx">
+      <DependentUpon>201811271719264_DeleteMostCalledID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271735096_AddPropertyFavoriteNumber.resx">
+      <DependentUpon>201811271735096_AddPropertyFavoriteNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271748083_AddPackageidToMostCalled.resx">
+      <DependentUpon>201811271748083_AddPackageidToMostCalled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

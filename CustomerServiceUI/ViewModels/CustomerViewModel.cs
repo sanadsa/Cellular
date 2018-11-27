@@ -42,17 +42,6 @@ namespace CustomerServiceUI.ViewModels
             }
         }
         private int selectedId;
-        
-        //private Client getClientById(int selectedId)
-        //{
-        //    Client client = Clients.Find((Client c) => (c.IdNumber == selectedId));
-        //    return clientCopy(client);
-        //}
-
-        //private Client clientCopy(Client client)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public List<ClientType> ClientTypes { get => clientType; }
         private List<ClientType> clientType;
@@ -150,7 +139,7 @@ namespace CustomerServiceUI.ViewModels
             }
 
             return true;
-        }
+        }    
 
         /// <summary>
         /// delete client when delete button clicked
