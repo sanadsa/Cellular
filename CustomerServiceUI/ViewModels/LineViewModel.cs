@@ -34,20 +34,92 @@ namespace CustomerServiceUI.ViewModels
             {
                 SetProperty(ref selectedLine, value);
                 SelectedPackage = new Package();
-                SelectedPackage = bl.GetPackage(selectedLine.LineId);
-                if (SelectedPackage == null)
+                if (SelectedLine == null || SelectedLine.LineId == 0)
                 {
                     SelectedPackage = new Package();
+                }
+                else
+                {
+                    SelectedPackage = bl.GetPackage(SelectedLine.LineId);
                 }
             }
         }
         private Line selectedLine = null;
+
+        private double priceMinue;
+        public double PriceMinue
+        {
+            get => priceMinue; set
+            {
+                SetProperty(ref priceMinue, value);
+                TotalPayment += priceMinue;
+            }
+        }
+
+        private bool familyDiscount = false;
+        public bool FamilyDiscount { get => familyDiscount; set
+            {
+                SetProperty(ref familyDiscount, value);
+                if (familyDiscount)
+                {
+                    TotalPayment += SelectedPackage.SecondSale;
+                }
+                else
+                {
+                    TotalPayment -= SelectedPackage.SecondSale;
+                }
+            }
+        }
+
+        private bool mostCalledNums = false;
+        public bool MostCalledNums
+        {
+            get => mostCalledNums; set
+            {
+                SetProperty(ref mostCalledNums, value);
+                if (mostCalledNums)
+                {
+                    TotalPayment += SelectedPackage.ThirdSale;
+                }
+                else
+                {
+                    TotalPayment -= SelectedPackage.ThirdSale;
+                }
+            }
+        }
+
+        private bool favoriteNum = false;
+        public bool FavoriteNum { get => favoriteNum; set {
+                SetProperty(ref favoriteNum, value);
+                if (favoriteNum)
+                {
+                    TotalPayment += SelectedPackage.ForthSale;
+                }
+                else
+                {
+                    TotalPayment -= SelectedPackage.ForthSale;
+                }
+            }
+        }
+
+        private double totalPayment;
+        public double TotalPayment { get => totalPayment; set
+            {
+                SetProperty(ref totalPayment, value);
+                SelectedPackage.TotalPrice = totalPayment;
+            }
+        }
 
         public Package SelectedPackage
         {
             get => selectedPackage; set
             {
                 SetProperty(ref selectedPackage, value);
+                FamilyDiscount = SelectedPackage.FamilyDiscount;
+                MostCalledNums = SelectedPackage.MostCalledNums;
+                FavoriteNum = SelectedPackage.FavoriteNumber;
+                PriceMinue = SelectedPackage.MinutePrice;
+                TotalPayment = SelectedPackage.TotalPrice;
             }
         }
         private Package selectedPackage = null;
@@ -69,6 +141,18 @@ namespace CustomerServiceUI.ViewModels
             clientlines = bl.GetClientLines(clientId);
             selectedLine = new Line();
             selectedPackage = new Package();
+            totalPayment = 0;
+        }
+
+        /// <summary>
+        /// clear window inputs
+        /// </summary>
+        private void Reset()
+        {
+            ClientLines = bl.GetClientLines(clientId);
+            SelectedLine = new Line();
+            IsPackage = false;
+            TotalPayment = 0;
         }
 
         /// <summary>
@@ -76,10 +160,6 @@ namespace CustomerServiceUI.ViewModels
         /// </summary>
         private bool CanDelete(object arg)
         {
-            if (SelectedLine.ClientId != clientId)
-            {
-                return false;
-            }
             return true;
         }
 
@@ -101,17 +181,6 @@ namespace CustomerServiceUI.ViewModels
         }
 
         /// <summary>
-        /// clear window inputs
-        /// </summary>
-        private void Reset()
-        {
-            ClientLines = bl.GetClientLines(clientId);
-            SelectedLine = new Line();
-            SelectedPackage = new Package();
-            IsPackage = false;
-        }
-
-        /// <summary>
         /// on clear command to clear window input
         /// </summary>
         /// <param name="obj"></param>
@@ -130,8 +199,8 @@ namespace CustomerServiceUI.ViewModels
                 var lineId = bl.AddLine(clientId, SelectedLine.Number, eStatus.available);
                 if (IsPackage)
                 {
-                    bl.AddPackage("Package" + clientId, lineId.LineId, SelectedPackage.TotalPrice, DateTime.Now,
-                        SelectedPackage.MaxMinute, SelectedPackage.MinutePrice, 0.5,
+                    bl.AddPackage("Package" + clientId, lineId.LineId, TotalPayment, DateTime.Now,
+                        SelectedPackage.MaxMinute, PriceMinue, 0.5,
                         SelectedPackage.FavoriteNumber, SelectedPackage.MostCalledNums, SelectedPackage.FamilyDiscount);
                     MessageBox.Show(string.Format("Line added for client {0} with package", clientId));
                 }

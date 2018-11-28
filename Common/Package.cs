@@ -78,5 +78,11 @@ namespace Common
         public DateTime Month { get => month; set => month = value; }
         public Line Line { get => line; set => line = value; }
         public bool FavoriteNumber { get => favoriteNumber; set => favoriteNumber = value; }
+
+        public int SecondSale => secondSale;
+
+        public int ThirdSale => thirdSale;
+
+        public int ForthSale => forthSale;
     }
 }

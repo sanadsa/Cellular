@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CustomerServiceUI
 {
@@ -27,7 +29,8 @@ namespace CustomerServiceUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Customer());
+            lblLoading.Visibility = Visibility.Visible;
+            this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Customer())), DispatcherPriority.ContextIdle);
         }
 
         private void Simulator_Click(object sender, RoutedEventArgs e)

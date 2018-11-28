@@ -75,6 +75,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// adds package to db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/package")]
         public HttpResponseMessage CreatePackage([FromBody]Package package)
