@@ -9,18 +9,19 @@ namespace CustomerServiceUI.ViewModels
 {
     public class CustomerViewModel : ViewModelBase
     {
-        public ICommand SaveCommand { get => saveCommand; }
         private readonly DelegateCommand saveCommand;
-        public ICommand DeleteCommand { get => deleteCommand; }
+        public ICommand SaveCommand { get => saveCommand; }
         private readonly DelegateCommand deleteCommand;
-        public ICommand ClearCommand { get => clearCommand; }
+        public ICommand DeleteCommand { get => deleteCommand; }
         private readonly DelegateCommand clearCommand;
-        public ICommand UpdateCommand { get => updateCommand; }
+        public ICommand ClearCommand { get => clearCommand; }
         private readonly DelegateCommand updateCommand;
+        public ICommand UpdateCommand { get => updateCommand; }
         
-        public List<Client> Clients { get => clients; set => SetProperty(ref clients, value); }
         private List<Client> clients;
+        public List<Client> Clients { get => clients; set => SetProperty(ref clients, value); }
 
+        private Client selectedClient = null;
         public Client SelectedClient { get => selectedClient; set
             {
                 SetProperty(ref selectedClient, value);
@@ -30,8 +31,8 @@ namespace CustomerServiceUI.ViewModels
                 updateCommand.InvokeCanExecuteChanged();
             }
         }
-        private Client selectedClient = null;
 
+        private int selectedId;
         public int SelectedId { get => selectedId; set
             {
                 SetProperty(ref selectedId, value);
@@ -41,11 +42,11 @@ namespace CustomerServiceUI.ViewModels
                 deleteCommand.InvokeCanExecuteChanged();
             }
         }
-        private int selectedId;
 
-        public List<ClientType> ClientTypes { get => clientType; }
         private List<ClientType> clientType;
+        public List<ClientType> ClientTypes { get => clientType; }
 
+        private ClientType selectedType = null;
         public ClientType SelectedType
         {
             get => selectedType; set
@@ -54,11 +55,11 @@ namespace CustomerServiceUI.ViewModels
                 selectedClient.ClientTypeId = selectedType.Id;
             }
         }
-        private ClientType selectedType = null;
 
-        private CrmBl Bl = new CrmBl();
         public string Error { get => error; set => SetProperty(ref error, value); }
         private string error;
+
+        private CrmBl Bl = new CrmBl();
 
         public CustomerViewModel()
         {

@@ -23,6 +23,11 @@ namespace Common
             ThirdNumber = num3;
         }
 
+        public MostCalled()
+        {
+
+        }
+
         public string FirstNumber { get => firstNumber; set => firstNumber = value; }
         public string SecondNumber { get => secondNumber; set => secondNumber = value; }
         public string ThirdNumber { get => thirdNumber; set => thirdNumber = value; }

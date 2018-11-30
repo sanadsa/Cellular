@@ -32,5 +32,6 @@ namespace CRM.Common.Interfaces
         Package UpdatePackage(int packageId, string name, int lineId, double price, DateTime month, int maxMinute, double minutePrice,
             double discount, bool favoriteNum, bool mostCalled, bool famDis);
         Package GetPackage(int lineId);
+        MostCalled AddMostCalledNums(int packageId, string n1, string n2, string n3);
     }
 }

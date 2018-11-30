@@ -147,6 +147,32 @@ namespace CRM.DAL
         }
 
         /// <summary>
+        /// add most called numbers to db - if package not in db throw exception
+        /// </summary>
+        public MostCalled AddMostCalled(MostCalled mostCalled)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var packageFromDb = context.Packages.SingleOrDefault(p => p.PackageId == mostCalled.PackageId);
+                    if (packageFromDb == null)
+                    {
+                        throw new KeyNotFoundException("package not exits, unable to add most called");
+                    }
+                    context.MostCalled.Add(mostCalled);
+                    context.SaveChanges();
+                    return mostCalled;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Add most called Dal error: " + e.Message);
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
         /// Delete client from db by client id
         /// </summary>
         public void DeleteClient(int clientId)
@@ -272,13 +298,14 @@ namespace CRM.DAL
                     {
                         throw new Exception("Package not found");
                     }
-                    packInDb.DiscountPercentage = newPackage.DiscountPercentage;
-                    packInDb.FamilyDiscount = newPackage.FamilyDiscount;
+                    packInDb.TotalPrice = newPackage.TotalPrice;
+                    packInDb.Month = newPackage.Month;
                     packInDb.MaxMinute = newPackage.MaxMinute;
                     packInDb.MinutePrice = newPackage.MinutePrice;
-                    packInDb.Month = newPackage.Month;
+                    packInDb.DiscountPercentage = newPackage.DiscountPercentage;
+                    packInDb.FavoriteNumber = newPackage.FavoriteNumber;
                     packInDb.MostCalledNums = newPackage.MostCalledNums;
-                    packInDb.TotalPrice = newPackage.TotalPrice;
+                    packInDb.FamilyDiscount = newPackage.FamilyDiscount;
 
                     context.SaveChanges();
                     return newPackage;
@@ -373,6 +400,9 @@ namespace CRM.DAL
             }
         }
 
+        /// <summary>
+        /// get client types - vip/regulare..
+        /// </summary>
         public List<ClientType> GetClientTypes()
         {
             try
@@ -442,6 +472,56 @@ namespace CRM.DAL
             {
                 log.LogWrite("Get package Dal error: " + e.Message);
                 throw new Exception("Get package exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get most called numbers from MostCalled Table in db by package id
+        /// </summary>
+        public MostCalled GetMostCalledNums(int packageId)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var numbers = context.MostCalled.SingleOrDefault(m => m.PackageId == packageId);
+                    if (numbers == null)
+                    {
+                        throw new Exception("no numbers found for package " + packageId);
+                    }
+
+                    return numbers;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get most called numbers Dal error: " + e.Message);
+                throw new Exception("Get most called numbers exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get package templates from db
+        /// </summary>
+        public List<TemplatePackage> GetTemplates()
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var templates = context.TemplatePackages.ToList();
+                    if (templates == null)
+                    {
+                        throw new Exception("no templates found");
+                    }
+
+                    return templates;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get templates Dal error: " + e.Message);
+                throw new Exception("Get templates exception: " + e.Message);
             }
         }
     }

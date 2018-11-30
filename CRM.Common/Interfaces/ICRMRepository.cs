@@ -32,5 +32,8 @@ namespace CRM.Common.Interfaces
         Package AddPackage(Package package);
         Package UpdatePackage(Package newPackage, int packageId);
         Package GetPackage(int lineId);
+        MostCalled AddMostCalled(MostCalled mostCalled);
+        MostCalled GetMostCalledNums(int packageId);
+        List<TemplatePackage> GetTemplates();
     }
 }

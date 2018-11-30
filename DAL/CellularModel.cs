@@ -16,13 +16,11 @@ namespace DAL
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ServiceAgent> ServiceAgents { get; set; }
         public DbSet<SMS> SMS { get; set; }
+        public DbSet<TemplatePackage> TemplatePackages { get; set; }
 
         public CellularModel()
             : base("name=CellularModel")
         {
         }
-
-        // Add a DbSet for each entity type that you want to include in your model. For more information 
-        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.        
     }
 }

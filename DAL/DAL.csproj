@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201811271748083_AddPackageidToMostCalled.Designer.cs">
       <DependentUpon>201811271748083_AddPackageidToMostCalled.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811301656441_AddTemplatePackagesTable.cs" />
+    <Compile Include="Migrations\201811301656441_AddTemplatePackagesTable.Designer.cs">
+      <DependentUpon>201811301656441_AddTemplatePackagesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811271748083_AddPackageidToMostCalled.resx">
       <DependentUpon>201811271748083_AddPackageidToMostCalled.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301656441_AddTemplatePackagesTable.resx">
+      <DependentUpon>201811301656441_AddTemplatePackagesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

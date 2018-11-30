@@ -93,6 +93,32 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// adds most called to db, throw exception if package id not found
+        /// </summary>
+        [HttpPost]
+        [Route("api/crm/mostcalled")]
+        public HttpResponseMessage CreateMostCalled([FromBody]MostCalled mostCalled)
+        {
+            try
+            {
+                var m = DAL.AddMostCalled(mostCalled);
+                return Request.CreateResponse(HttpStatusCode.OK, m);
+            }
+            catch (ArgumentException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, e.Message);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
         [HttpPut]
         [Route("api/crm/agent/{agentId}")]
         public void UpdateServiceAgent([FromBody]ServiceAgent agent, int agentId)
@@ -205,6 +231,27 @@ namespace WebAPIService.Controllers.Api
         }
 
         /// <summary>
+        /// get package templates - from dal 
+        /// </summary>
+        [Route("api/crm/templates")]
+        public HttpResponseMessage GetTemplates()
+        {
+            try
+            {
+                var templates = DAL.GetTemplates();
+                return Request.CreateResponse(HttpStatusCode.OK, templates);
+            }
+            catch (HttpResponseException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
+        /// <summary>
         /// get package by line id - from dal
         /// </summary>
         [Route("api/crm/package/{lineId}")]
@@ -225,6 +272,31 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get most called numbers by package id - from dal
+        /// </summary>
+        [Route("api/crm/mostcalled/{packageId}")]
+        public HttpResponseMessage GetMostCalledNums(int packageId)
+        {
+            try
+            {
+                var numbers = DAL.GetMostCalledNums(packageId);
+                return Request.CreateResponse(HttpStatusCode.OK, numbers);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// get client types from dal
+        /// </summary>
+        /// <returns>http response message with status code and client types</returns>
         [Route("api/crm/types")]
         public HttpResponseMessage GetClientTypes()
         {
