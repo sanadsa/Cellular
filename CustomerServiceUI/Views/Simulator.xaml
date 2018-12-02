@@ -1,0 +1,64 @@
+﻿<Page x:Class="CustomerServiceUI.Simulator"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CustomerServiceUI"
+      xmlns:common="clr-namespace:Common;assembly=Common"
+      xmlns:ViewModels="clr-namespace:CustomerServiceUI.ViewModels"
+      mc:Ignorable="d"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      Title="Simulator" Height="470" Width="300">
+    <Page.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="common:eCallTo"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
+    <Page.DataContext>
+        <ViewModels:ReceiptViewModel/>
+    </Page.DataContext>
+    
+    <Grid>
+        <StackPanel Margin="10">
+            <Label Content="Simulator" FontSize="25" HorizontalAlignment="Center"/>
+            <Label Content="Choose Line To Make A Call/SMS" FontSize="15" HorizontalAlignment="Center"/>
+            <Separator></Separator>
+            <Label Content="Client" FontSize="16"/>
+            <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" FontSize="13" Height="24" Margin="0,0,116,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding IdNumber}"></TextBlock>
+                            <TextBlock Text="-"></TextBlock>
+                            <TextBlock Text="{Binding ClientName}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Line" FontSize="16"/>
+            <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" FontSize="13" Height="24" Margin="0,0,116,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Number}"></TextBlock>
+                            <TextBlock Text="-"></TextBlock>
+                            <TextBlock Text="{Binding Status}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Label Content="Duration" FontSize="16"/>
+            <TextBox Text="{Binding Duration}" FontSize="15"/>
+            <Label Content="Phone Number" FontSize="16"/>
+            <TextBox Text="{Binding PhoneNumber}" FontSize="15"/>
+            <Label Content="Call/SMS To" FontSize="16"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding CallTo}" FontSize="15" Height="24" Margin="0,0,116,0" />
+            <CheckBox IsChecked="{Binding IsSms}" FontSize="16" Content="SMS"/>
+            <Separator></Separator>
+            <Button Command="{Binding SimulateCommand}" Content="Simulate" Margin="60 10" FontSize="18"/>
+        </StackPanel>
+    </Grid>
+</Page>

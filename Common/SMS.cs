@@ -13,12 +13,14 @@ namespace Common
         private Line line;
         private DateTime month;
         private string destinationNum;
+        private eCallTo callTo;
 
-        public SMS(int lineId, DateTime month, string destinationNum)
+        public SMS(int lineId, DateTime month, string destinationNum, eCallTo callTo)
         {
             LineID = lineId;
             Month = month;
             DestinationNum = destinationNum;
+            CallTo = callTo;
         }
 
         public SMS()
@@ -31,5 +33,6 @@ namespace Common
         public string DestinationNum { get => destinationNum; set => destinationNum = value; }
         public int SmsID { get => smsID; set => smsID = value; }
         public Line Line { get => line; set => line = value; }
+        public eCallTo CallTo { get => callTo; set => callTo = value; }
     }
 }

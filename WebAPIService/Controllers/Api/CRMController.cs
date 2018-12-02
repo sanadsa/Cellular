@@ -210,6 +210,24 @@ namespace WebAPIService.Controllers.Api
         }
 
         /// <summary>
+        /// get line by line id, if line not exists return status not found
+        /// </summary>
+        [Route("api/crm/line/{lineId}")]
+        public HttpResponseMessage GetLine(int lineId)
+        {
+            var line = DAL.GetLine(lineId);
+            if (line == null)
+            {
+                var message = string.Format("line with line id = {0} not found", lineId);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, line);
+            }
+        }
+
+        /// <summary>
         /// get lines of the client - from dal 
         /// </summary>
         [Route("api/crm/lines/{clientId}")]

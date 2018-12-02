@@ -54,28 +54,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Lines.xaml.cs">
+    <Compile Include="Views\Lines.xaml.cs">
       <DependentUpon>Lines.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Simulator.xaml.cs">
+    <Compile Include="Views\Receipt.xaml.cs">
+      <DependentUpon>Receipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Simulator.xaml.cs">
       <DependentUpon>Simulator.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
+    <Compile Include="ViewModels\ReceiptViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Page Include="Customer.xaml">
+    <Page Include="Views\Customer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Lines.xaml">
+    <Page Include="Views\Lines.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="Views\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,7 +91,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Customer.xaml.cs">
+    <Compile Include="Views\Customer.xaml.cs">
       <DependentUpon>Customer.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -98,7 +102,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Simulator.xaml">
+    <Page Include="Views\Receipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Simulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +149,15 @@
       <Project>{f5b80959-41e5-45c7-9aa3-d4d02662c9ac}</Project>
       <Name>CRM.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Invoice.BL\Invoice.BL.csproj">
+      <Project>{8D239DD7-6D94-4C59-B762-6A2DB58288D3}</Project>
+      <Name>Invoice.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Invoice.Common\Invoice.Common.csproj">
+      <Project>{766D1534-CC10-45D0-9E02-E780278CB8C5}</Project>
+      <Name>Invoice.Common</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

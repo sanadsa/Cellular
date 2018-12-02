@@ -24,10 +24,10 @@ namespace CRM.Common.Interfaces
         ServiceAgent Login(string name, string password);
         // line
         Line AddLine(Line line);
-        //Line UpdateLine(Line newLine, int lineId);
         Line UpdateLine(int lineId, eStatus status);
         void DeleteLine(int lineId);
         List<Line> GetLines(int clientId);
+        Line GetLine(int lineId);
         // package
         Package AddPackage(Package package);
         Package UpdatePackage(Package newPackage, int packageId);

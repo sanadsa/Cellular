@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201811301656441_AddTemplatePackagesTable.Designer.cs">
       <DependentUpon>201811301656441_AddTemplatePackagesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812020845246_AddCallToInSMS.cs" />
+    <Compile Include="Migrations\201812020845246_AddCallToInSMS.Designer.cs">
+      <DependentUpon>201812020845246_AddCallToInSMS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811301656441_AddTemplatePackagesTable.resx">
       <DependentUpon>201811301656441_AddTemplatePackagesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812020845246_AddCallToInSMS.resx">
+      <DependentUpon>201812020845246_AddCallToInSMS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

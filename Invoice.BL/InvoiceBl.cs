@@ -14,6 +14,84 @@ namespace Invoice.BL
         LogWriter log = new LogWriter();
 
         /// <summary>
+        /// Get receipt for line by month
+        /// </summary>
+        public Receipt GetReceipt(int lineId, DateTime month)
+        {
+            Receipt receipt;
+            Package package;
+            Line line;
+            ClientType type;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/invoice/package/" + lineId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        package = JsonConvert.DeserializeObject<Package>(response);
+                    }
+                    else
+                    {
+                        throw new Exception("Error getting pacakge");
+                    }
+
+                    result = client.GetAsync("api/invoice/clientType/" + lineId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        type = JsonConvert.DeserializeObject<ClientType>(response);
+                    }
+                    else
+                    {
+                        throw new Exception("cant get client type");
+                    }
+
+                    result = client.GetAsync("api/crm/line/" + lineId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        line = JsonConvert.DeserializeObject<Line>(response);
+                    }
+                    else
+                    {
+                        throw new Exception("cant get line");
+                    }
+                }
+
+                receipt = new Receipt();
+                var minsLeft = GetMinutesLeft(lineId, month);
+                var payment = GetCallsPayment(lineId, month);
+                receipt.LineNumber = line.Number;
+                receipt.PackageMinutes = package.MaxMinute;
+                receipt.PackagePrice = package.TotalPrice;
+                receipt.MinutesLeft = minsLeft >= 0 ? minsLeft : 0;
+                receipt.PackageUsage = receipt.MinutesLeft != 0 ? (package.MaxMinute - receipt.MinutesLeft / package.MaxMinute) * 100 : 0;
+                receipt.PricePerMinute = type.MinutePrice;
+                receipt.TotalPrice = payment + package.TotalPrice - package.MinutePrice;
+                if (minsLeft < 0)
+                {
+                    receipt.MinutesOutOfPackage = minsLeft * -1;
+                    receipt.Extra = payment - package.TotalPrice;
+                }
+                else
+                {
+                    receipt.MinutesOutOfPackage = 0;
+                    receipt.Extra = 0;
+                }
+
+                return receipt;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get Receipt error: " + e.Message);
+                throw new Exception("Get Receipt Exception: " + e.Message);
+            }
+        }
+
+        /// <summary>
         /// Calculate the minutes that left for line in the package by month
         /// gets all calls in the selected month and divide each call duration from the minutes in package
         /// </summary>
@@ -31,7 +109,7 @@ namespace Invoice.BL
                 {
                     client.BaseAddress = new Uri(url);
 
-                    var callResult = client.GetAsync("api/invoice/calls/"+lineId+"/"+month.Month).Result;
+                    var callResult = client.GetAsync("api/invoice/calls/" + lineId + "/" + month.Month).Result;
                     if (callResult.IsSuccessStatusCode)
                     {
                         string response = callResult.Content.ReadAsStringAsync().Result;
@@ -55,7 +133,7 @@ namespace Invoice.BL
                 }
 
                 minLeft = package.MaxMinute;
-                if (minLeft == null)
+                if (minLeft == 0)
                 {
                     throw new Exception("package dont contains minutes");
                 }
@@ -178,6 +256,9 @@ namespace Invoice.BL
             }
         }
 
+        /// <summary>
+        /// add payment to client for selected month
+        /// </summary>
         public Payment AddPayment(int clientID, DateTime month, double totalPayment)
         {
             try
@@ -206,6 +287,9 @@ namespace Invoice.BL
             }
         }
 
+        /// <summary>
+        /// add a call to line in selected day 
+        /// </summary>
         public Call SimulateCall(int lineId, double duration, DateTime month, string destination, eCallTo callTo)
         {
             try
@@ -234,14 +318,17 @@ namespace Invoice.BL
             }
         }
 
-        public SMS SimulateSms(int lineId, DateTime month, string destinationNum)
+        /// <summary>
+        /// add sms to line in selected day
+        /// </summary>
+        public SMS SimulateSms(int lineId, DateTime month, string destinationNum, eCallTo callTo)
         {
             try
             {
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(url);
-                    var sms = new SMS(lineId, month, destinationNum);
+                    var sms = new SMS(lineId, month, destinationNum, callTo);
                     string json = JsonConvert.SerializeObject(sms);
                     var result = client.PostAsync("api/crm/sms", new StringContent(json, System.Text.Encoding.UTF8, "application/json")).Result;
                     if (result.IsSuccessStatusCode)

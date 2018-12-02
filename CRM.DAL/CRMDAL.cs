@@ -524,5 +524,30 @@ namespace CRM.DAL
                 throw new Exception("Get templates exception: " + e.Message);
             }
         }
+
+        /// <summary>
+        /// get line by line id
+        /// </summary>
+        public Line GetLine(int lineId)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var line = context.Lines.SingleOrDefault(l => l.LineId == lineId);
+                    if (line == null)
+                    {
+                        throw new Exception("no line found");
+                    }
+
+                    return line;
+                }
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get line Dal error: " + e.Message);
+                throw new Exception("Get line exception: " + e.Message);
+            }
+        }
     }
 }

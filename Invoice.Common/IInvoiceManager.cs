@@ -11,10 +11,11 @@ namespace Invoice.Common
     {
         // simulator
         Call SimulateCall(int lineId, double duration, DateTime month, string destination, eCallTo callTo);
-        SMS SimulateSms(int lineId, DateTime month, string destinationNum);
+        SMS SimulateSms(int lineId, DateTime month, string destinationNum, eCallTo callTo);
         // receipt
         Payment AddPayment(int clientID, DateTime month, double totalPayment);
         double GetMinutesLeft(int lineId, DateTime month);
         double GetCallsPayment(int lineId, DateTime month);
+        Receipt GetReceipt(int lineId, DateTime month);
     }
 }

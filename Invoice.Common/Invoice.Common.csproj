@@ -43,6 +43,7 @@
     <Compile Include="IInvoiceManager.cs" />
     <Compile Include="IInvoiceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receipt.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

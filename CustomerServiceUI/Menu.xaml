@@ -10,7 +10,8 @@
     <Grid>
         <Button Name="btnC" Content="Customer" HorizontalAlignment="Left" Margin="196,138,0,255" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Button_Click"/>
         <Button Content="Simulator" HorizontalAlignment="Left" Margin="196,182,0,211" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Simulator_Click"/>
-        <Label Name="lblLoading" Visibility="Hidden" Content="Loading clients..." FontSize="15" HorizontalAlignment="Left" Margin="196,242,0,0" VerticalAlignment="Top" Width="130"/>
+        <Button Content="Receipt" HorizontalAlignment="Left" Margin="196,227,0,166" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Receipt_Click"/>
+        <Label Name="lblLoading" Visibility="Hidden" Content="Loading clients..." FontSize="15" HorizontalAlignment="Left" Margin="196,267,0,0" VerticalAlignment="Top" Width="130"/>
 
     </Grid>
 </Page>

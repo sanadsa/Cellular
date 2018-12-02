@@ -19,6 +19,9 @@ namespace WebAPIService.Controllers.Api
             DAL = new InvoiceDal();
         }
 
+        /// <summary>
+        /// Add payment to Payments table in db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/payment")]
         public HttpResponseMessage CreatePayment([FromBody]Payment payment)
@@ -34,6 +37,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// Add call to Calls table in db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/call")]
         public HttpResponseMessage CreateCall([FromBody]Call call)
@@ -49,6 +55,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// Add SMS to sms table in db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/sms")]
         public HttpResponseMessage CreateSms([FromBody]SMS sms)
@@ -64,6 +73,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get package by line id, if line dont have pacakge return statuc not found
+        /// </summary>
         [Route("api/invoice/package/{lineId}")]
         public HttpResponseMessage GetPackage(int lineId)
         {
@@ -79,6 +91,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get all sms from db by line id and month
+        /// </summary>
         [Route("api/invoice/sms/{lineId}/{month}")]
         public HttpResponseMessage GetAllSms(int lineId, int month)
         {
@@ -94,6 +109,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get all calls from db by line id and month
+        /// </summary>
         [Route("api/invoice/calls/{lineId}/{month}")]
         public IEnumerable<Call> GetCalls(int lineId, int month)
         {
@@ -107,6 +125,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get client type by line id
+        /// </summary>
         [Route("api/invoice/clientType/{lineId}")]
         public ClientType GetClientType(int lineId)
         {
