@@ -29,8 +29,6 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
-                    //var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name", new SqlParameter("@Name", agent.AgentName))
-                    //.FirstOrDefault();
                     var agentFromDb = context.ServiceAgents.SingleOrDefault(a => a.AgentName == agent.AgentName);
                     if (agentFromDb != null)
                     {

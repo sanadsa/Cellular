@@ -5,6 +5,8 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Log;
 using System.Collections.Generic;
+using System.IO;
+using OfficeOpenXml;
 
 namespace Invoice.BL
 {
@@ -35,7 +37,7 @@ namespace Invoice.BL
                     }
                     else
                     {
-                        throw new Exception("Error getting pacakge");
+                        package = null;
                     }
 
                     result = client.GetAsync("api/invoice/clientType/" + lineId).Result;
@@ -62,15 +64,29 @@ namespace Invoice.BL
                 }
 
                 receipt = new Receipt();
-                var minsLeft = GetMinutesLeft(lineId, month);
                 var payment = GetCallsPayment(lineId, month);
+                double minsLeft = 0;
+                if (package != null)
+                {
+                    minsLeft = GetMinutesLeft(lineId, month);
+                    receipt.MinutesLeft = minsLeft >= 0 ? minsLeft : 0;
+                    receipt.PackageMinutes = package.MaxMinute;
+                    receipt.PackagePrice = package.TotalPrice;
+                    receipt.PackageUsage = receipt.MinutesLeft > 0 ? ((package.MaxMinute - receipt.MinutesLeft) / package.MaxMinute) * 100 : 0;
+                    receipt.TotalPrice = payment + package.TotalPrice - package.MinutePrice;
+                }
+                else
+                {
+                    minsLeft = 0;
+                    receipt.PackageMinutes = 0;
+                    receipt.PackagePrice = 0;
+                    receipt.PackageUsage = 0;
+                    receipt.MinutesLeft = 0;
+                    receipt.TotalPrice = payment;
+                }
                 receipt.LineNumber = line.Number;
-                receipt.PackageMinutes = package.MaxMinute;
-                receipt.PackagePrice = package.TotalPrice;
-                receipt.MinutesLeft = minsLeft >= 0 ? minsLeft : 0;
-                receipt.PackageUsage = receipt.MinutesLeft != 0 ? (package.MaxMinute - receipt.MinutesLeft / package.MaxMinute) * 100 : 0;
                 receipt.PricePerMinute = type.MinutePrice;
-                receipt.TotalPrice = payment + package.TotalPrice - package.MinutePrice;
+
                 if (minsLeft < 0)
                 {
                     receipt.MinutesOutOfPackage = minsLeft * -1;
@@ -128,7 +144,7 @@ namespace Invoice.BL
                     }
                     else
                     {
-                        throw new Exception("cant get package");
+                        throw new Exception("no package for line " + lineId);
                     }
                 }
 
@@ -348,6 +364,5 @@ namespace Invoice.BL
                 throw new Exception("Add sms exception: " + e.Message);
             }
         }
-
     }
 }

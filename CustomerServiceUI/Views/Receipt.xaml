@@ -13,7 +13,7 @@
     </Page.DataContext>
     <Grid>
         <StackPanel>
-            <Label Content="Receipt Calcilator" FontSize="25" HorizontalAlignment="Center"/>
+            <Label Content="Receipt Calculator" FontSize="25" HorizontalAlignment="Center"/>
             <Label Content="Select client and line to see the receipt" FontSize="15" HorizontalAlignment="Center"/>
             <Separator/>
         </StackPanel>
@@ -30,8 +30,8 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Label Content="Select Line" HorizontalAlignment="Left" Margin="34,142,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" HorizontalAlignment="Left" Margin="128,142,0,0" VerticalAlignment="Top" Width="143" RenderTransformOrigin="0.375,-0.273">
-            <ComboBox.ItemTemplate>
+        <ListBox x:Name="ListBoxLines" ItemsSource="{Binding Lines}" SelectionMode="Multiple" Margin="128,142,341,394" >
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Number}"/>
@@ -39,16 +39,18 @@
                         <TextBlock Text="{Binding Status}"/>
                     </StackPanel>
                 </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+            </ListBox.ItemTemplate>
+        </ListBox>
+       
         <Label Content="Select Month" HorizontalAlignment="Left" Margin="289,95,0,0" VerticalAlignment="Top"/>
         <DatePicker SelectedDate="{Binding SelectedMonth}" Margin="383,96,78,407"/>
-        <Button Command="{Binding CalcCommand}" Content="Calculate" HorizontalAlignment="Left" Margin="267,202,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Command="{Binding CalcCommand}" CommandParameter="{Binding ElementName=ListBoxLines, Path=SelectedItems}" Content="Calculate" HorizontalAlignment="Left" Margin="267,202,0,0" VerticalAlignment="Top" Width="76"/>
         <GroupBox IsEnabled="{Binding IsPackage}" Name="grpPackage" Header="Receipt" HorizontalAlignment="Left" Height="379" Margin="34,227,0,0" VerticalAlignment="Top" Width="528">
             <Grid>
                 <Label Content="Client Name" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top"/>
                 <Label Content="Month" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top"/>
                 <Label Content="Total Price" HorizontalAlignment="Left" Margin="324,10,0,0" VerticalAlignment="Top"/>
+                <Button IsEnabled="{Binding IsExport}" Command="{Binding ExportCommand}" Content="Export" Margin="402,10,22,321"></Button>
                 <Label Content="{Binding SelectedClient.ClientName}" HorizontalAlignment="Left" Margin="107,41,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding SelectedMonth.Month}" HorizontalAlignment="Left" Margin="232,41,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="341,41,0,0" VerticalAlignment="Top"/>
@@ -57,31 +59,31 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="328">
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Package" FontWeight="Bold" VerticalAlignment="Top"/>
-                                    <Label Content="Line Number" FontWeight="Bold" VerticalAlignment="Top"/>
+                                    <Label Content="Package" Width="70" FontWeight="Bold" VerticalAlignment="Top"/>
+                                    <Label Content="Line Number -" Width="90" FontWeight="Bold" VerticalAlignment="Top"/>
                                     <Label Content="{Binding LineNumber}" FontWeight="Bold" VerticalAlignment="Top"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Minutes" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Label Content="Minutes left in package" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="Minutes" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="Minutes left in package" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     <Label Content="Package Usage" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding PackageMinutes}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Label Content="{Binding MinutesLeft}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="{Binding PackageMinutes}" Width="70" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="{Binding MinutesLeft}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     <Label Content="{Binding PackageUsage}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 </StackPanel>
                                 <Label Content="Package Price" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Label Content="{Binding PackagePrice}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <Label Content="Out Of Package" FontWeight="Bold" VerticalAlignment="Top"/>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Minutes beyond package limit" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Label Content="Price Per Minute" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="Minutes beyond package limit" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="Price Per Minute" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     <Label Content="Total" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding MinutesOutOfPackage}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                    <Label Content="{Binding PricePerMinute}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="{Binding MinutesOutOfPackage}" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Label Content="{Binding PricePerMinute}" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     <Label Content="{Binding Extra}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 </StackPanel>
                                 <Label Content="Total Package Price" HorizontalAlignment="Left" VerticalAlignment="Top"/>

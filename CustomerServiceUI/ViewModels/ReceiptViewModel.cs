@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Linq;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace CustomerServiceUI.ViewModels
 {
@@ -20,6 +23,9 @@ namespace CustomerServiceUI.ViewModels
 
         private readonly DelegateCommand calcCommand;
         public ICommand CalcCommand { get => calcCommand; }
+
+        private readonly DelegateCommand exportCommand;
+        public ICommand ExportCommand { get => exportCommand; }
 
         private List<Client> clients;
         public List<Client> Clients { get => clients; set => SetProperty(ref clients, value); }
@@ -37,7 +43,6 @@ namespace CustomerServiceUI.ViewModels
             {
                 SetProperty(ref selectedClient, value);
                 Lines = crmBl.GetClientLines(SelectedClient.ClientID);
-                //TotalPrice = invoiceBl.GetCallsPayment(SelectedLine.LineId, SelectedMonth);
             }
         }
 
@@ -71,16 +76,19 @@ namespace CustomerServiceUI.ViewModels
         private double totalPrice;
         public double TotalPrice { get => totalPrice; set => SetProperty(ref totalPrice, value); }
 
+        private bool isExport = false;
+        public bool IsExport { get => isExport; set => SetProperty(ref isExport, value); }
+
         public ReceiptViewModel()
         {
             simulateCommand = new DelegateCommand(OnSimulate, CanSimulate);
             calcCommand = new DelegateCommand(OnCalc, CanCalc);
+            exportCommand = new DelegateCommand(OnExport);
 
             clients = new List<Client>();
             clients = crmBl.GetClients();
             lines = new List<Line>();
             receipts = new ObservableCollection<Receipt>();
-            receipts.Add(new Receipt() { LineNumber = "1" ,MinutesLeft=90});
             selectedClient = new Client();
             selectedLine = new Line();
             selectedReceipt = new Receipt();
@@ -99,9 +107,41 @@ namespace CustomerServiceUI.ViewModels
         /// <param name="obj"></param>
         private void OnCalc(object obj)
         {
-            Receipts.Add(invoiceBl.GetReceipt(SelectedLine.LineId, SelectedMonth));
-        }
+            try
+            {
+                Receipts = new ObservableCollection<Receipt>();
+                TotalPrice = 0;
+                System.Collections.IList linesList = (System.Collections.IList)obj;
+                var collection = linesList.Cast<Line>();
+                foreach (var line in collection)
+                {
+                    var pack = crmBl.GetPackage(line.LineId);
+                    if (pack != null)
+                    {
+                        TotalPrice += invoiceBl.GetCallsPayment(line.LineId, SelectedMonth) + pack.TotalPrice - pack.MinutePrice;
+                    }
+                    else
+                    {
+                        TotalPrice += invoiceBl.GetCallsPayment(line.LineId, SelectedMonth);
+                    }
+                }
+                foreach (var line in collection)
+                {
+                    Receipts.Add(invoiceBl.GetReceipt(line.LineId, SelectedMonth));
+                }
 
+                if (Receipts.Count > 0)
+                {
+                    IsExport = true;
+                }
+
+                MessageBox.Show("Receipt calculated");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
         private bool CanCalc(object arg)
         {
             return true;
@@ -139,11 +179,70 @@ namespace CustomerServiceUI.ViewModels
                 MessageBox.Show(e.Message);
             }
         }
-
-
         private bool CanSimulate(object arg)
         {
             return true;
+        }
+
+        /// <summary>
+        /// Export receipts to excel file
+        /// </summary>
+        private void OnExport(object obj)
+        {
+            try
+            {
+                Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+
+                if (xlApp == null)
+                {
+                    MessageBox.Show("Excel is not properly installed!!");
+                    return;
+                }
+
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                for (int i = 0; i < Receipts.Count; i++)
+                {
+                    xlWorkSheet.Cells[1 + 9 * i, 1] = "Package";
+                    xlWorkSheet.Cells[2 + 9 * i, 1] = "Minutes";
+                    xlWorkSheet.Cells[2 + 9 * i, 2] = "Minutes Left In Package";
+                    xlWorkSheet.Cells[2 + 9 * i, 3] = "Package Usage";
+                    xlWorkSheet.Cells[3 + 9 * i, 1] = Receipts[i].PackageMinutes;
+                    xlWorkSheet.Cells[3 + 9 * i, 2] = Receipts[i].MinutesLeft;
+                    xlWorkSheet.Cells[3 + 9 * i, 3] = Receipts[i].PackageUsage;
+                    xlWorkSheet.Cells[4 + 9 * i, 1] = "Package Price";
+                    xlWorkSheet.Cells[4 + 9 * i, 3] = Receipts[i].PackagePrice;
+                    xlWorkSheet.Cells[5 + 9 * i, 1] = "Out Of Package";
+                    xlWorkSheet.Cells[6 + 9 * i, 1] = "Minutes Beyond Limit";
+                    xlWorkSheet.Cells[6 + 9 * i, 2] = "Price per minute";
+                    xlWorkSheet.Cells[6 + 9 * i, 3] = "Extra";
+                    xlWorkSheet.Cells[7 + 9 * i, 1] = Receipts[i].MinutesOutOfPackage;
+                    xlWorkSheet.Cells[7 + 9 * i, 2] = Receipts[i].PricePerMinute;
+                    xlWorkSheet.Cells[7 + 9 * i, 3] = Receipts[i].Extra;
+                    xlWorkSheet.Cells[8 + 9 * i, 1] = "Total Price";
+                    xlWorkSheet.Cells[8 + 9 * i, 3] = Receipts[i].TotalPrice;
+                }
+
+                xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+
+                Marshal.ReleaseComObject(xlWorkSheet);
+                Marshal.ReleaseComObject(xlWorkBook);
+                Marshal.ReleaseComObject(xlApp);
+
+                MessageBox.Show("Excel file created , you can find the file d:\\csharp-Excel.xls");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
     }
 }
