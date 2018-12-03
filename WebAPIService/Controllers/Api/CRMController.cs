@@ -15,9 +15,10 @@ namespace WebAPIService.Controllers.Api
     {
         private readonly ICrmRepository DAL;
 
-        public CRMController()
+        public CRMController(ICrmRepository crmRepository)
         {
-            DAL = new CrmDal();
+            //DAL = new CrmDal();
+            DAL = crmRepository;
         }
         
         [HttpPost]
