@@ -56,11 +56,13 @@ namespace CustomerServiceUI.ViewModels
                 if (SelectedLine == null || SelectedLine.LineId == 0)
                 {
                     SelectedPackage = new Package();
+                    IsPackage = false;
                 }
                 else
                 {
                     SelectedPackage = bl.GetPackage(SelectedLine.LineId);
                     SelectedNumbers = bl.GetMostCalledNums(SelectedPackage.PackageId);
+                    IsPackage = true;
                 }
             }
         }
@@ -276,7 +278,7 @@ namespace CustomerServiceUI.ViewModels
                 if (IsPackage)
                 {
                     var package = bl.AddPackage("Package" + line.LineId, line.LineId, TotalPayment, DateTime.Now,
-                        SelectedPackage.MaxMinute, PriceMinute, 0.5,
+                        SelectedPackage.MaxMinute, PriceMinute, SelectedPackage.DiscountPercentage,
                         FavoriteNum, MostCalledNums, FamilyDiscount);
                     if (MostCalledNums)
                     {

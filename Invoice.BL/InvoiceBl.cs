@@ -149,10 +149,6 @@ namespace Invoice.BL
                 }
 
                 minLeft = package.MaxMinute;
-                if (minLeft == 0)
-                {
-                    throw new Exception("package dont contains minutes");
-                }
                 foreach (var call in calls)
                 {
                     minLeft -= call.Duration;
@@ -241,6 +237,18 @@ namespace Invoice.BL
                             if (c.Duration < minutes)
                             {
                                 minutes -= c.Duration;
+                            }
+                            else if (package.FamilyDiscount && c.CallTo == eCallTo.family)
+                            {
+                                payment += c.Duration * type.MinutePrice * package.DiscountPercentage;
+                            }
+                            else if (package.MostCalledNums && c.CallTo == eCallTo.friends)
+                            {
+                                payment += c.Duration * type.MinutePrice * package.DiscountPercentage;
+                            }
+                            else if (package.FavoriteNumber && c.CallTo == eCallTo.mostCalled)
+                            {
+                                payment += 0;
                             }
                             else
                             {

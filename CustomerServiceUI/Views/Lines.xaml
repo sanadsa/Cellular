@@ -54,13 +54,15 @@
                 <Label Content="Price" HorizontalAlignment="Left" Margin="246,82,0,0" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding PriceMinute}" HorizontalAlignment="Left" Height="23" Margin="301,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <CheckBox IsChecked="{Binding FamilyDiscount}" Content="Family Discount" HorizontalAlignment="Left" Margin="21,124,0,0" VerticalAlignment="Top"/>
-                <CheckBox IsChecked="{Binding MostCalledNums}" Content="Friends" HorizontalAlignment="Left" Margin="21,159,0,0" VerticalAlignment="Top"/>
-                <TextBox Text="{Binding SelectedNumbers.FirstNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="105,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox Text="{Binding SelectedNumbers.SecondNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="246,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox Text="{Binding SelectedNumbers.ThirdNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="385,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <CheckBox IsChecked="{Binding FavoriteNum}" Content="Favorite Number" HorizontalAlignment="Left" Margin="21,192,0,0" VerticalAlignment="Top"/>
+                <CheckBox IsChecked="{Binding MostCalledNums}" Content="Friends" HorizontalAlignment="Left" Margin="21,165,0,0" VerticalAlignment="Top"/>
+                <TextBox Text="{Binding SelectedNumbers.FirstNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="105,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Text="{Binding SelectedNumbers.SecondNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="246,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <TextBox Text="{Binding SelectedNumbers.ThirdNumber}" IsEnabled="{Binding MostCalledNums}" HorizontalAlignment="Left" Height="23" Margin="385,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <CheckBox IsChecked="{Binding FavoriteNum}" Content="Favorite Number" HorizontalAlignment="Left" Margin="21,198,0,0" VerticalAlignment="Top"/>
                 <Label Content="Package Price" HorizontalAlignment="Left" Margin="188,232,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding TotalPayment}" HorizontalAlignment="Left" Margin="281,232,0,0" VerticalAlignment="Top"/>
+                <TextBox Text="{Binding SelectedPackage.DiscountPercentage}" HorizontalAlignment="Left" Height="23" Margin="150,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="33"/>
+                <Label Content="Discount Precentage" HorizontalAlignment="Left" Margin="21,215,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
     </Grid>

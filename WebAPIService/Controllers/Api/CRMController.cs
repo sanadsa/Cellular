@@ -17,7 +17,6 @@ namespace WebAPIService.Controllers.Api
 
         public CRMController(ICrmRepository crmRepository)
         {
-            //DAL = new CrmDal();
             DAL = crmRepository;
         }
         
