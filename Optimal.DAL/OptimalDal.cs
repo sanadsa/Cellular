@@ -1,4 +1,6 @@
-﻿using Optimal.Common;
+﻿using Common;
+using DAL;
+using Optimal.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,30 @@ namespace Optimal.DAL
             {
 
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// get client to login by id and number
+        /// </summary>
+        public Client GetClient(int clientId, string contactNumber)
+        {
+            try
+            {
+                using (CellularModel context = new CellularModel())
+                {
+                    var clientFromDb = context.Clients.SingleOrDefault(c => (c.IdNumber == clientId && c.ContactNumber == contactNumber));
+                    if (clientFromDb == null)
+                    {
+                        return null;
+                    }
+
+                    return clientFromDb;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Get client exception: " + e.Message);
             }
         }
 

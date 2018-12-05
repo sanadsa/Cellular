@@ -25,12 +25,12 @@ namespace CustomerServiceUI
 
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Simulator());
+            this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Simulator())), DispatcherPriority.ContextIdle);
         }
 
         private void Receipt_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Receipt());
+            this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Receipt())), DispatcherPriority.ContextIdle);
         }
     }
 }

@@ -356,9 +356,6 @@ namespace CRM.DAL
                 using (CellularModel context = new CellularModel())
                 {
                     var agentFromDb = context.ServiceAgents.SingleOrDefault(a => (a.AgentName == name && a.Password == password));
-                    //var agentFromDb = context.ServiceAgents.SqlQuery("Select * from ServiceAgents where AgentName=@Name && Password=@Pass", new SqlParameter("@Name", name), new SqlParameter("@Pass", password))
-                    //.FirstOrDefault();
-                    
                     if (agentFromDb == null)
                     {
                         throw new Exception("User not exists, check username and password");

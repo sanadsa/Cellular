@@ -7,6 +7,10 @@ using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.WebApi;
 using CRM.Common.Interfaces;
 using CRM.DAL;
+using Optimal.DAL;
+using Optimal.Common;
+using Invoice.Common;
+using Invoice.DAL;
 
 namespace WebAPIService
 {
@@ -19,6 +23,7 @@ namespace WebAPIService
 
             // Register your types, for instance using the scoped lifestyle:
             container.Register<ICrmRepository, CrmDal>(Lifestyle.Scoped);
+            //container.Register<IOptimalRepository, OptimalDal>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

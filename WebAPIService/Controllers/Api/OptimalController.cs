@@ -1,4 +1,6 @@
-﻿using Optimal.Common;
+﻿using Invoice.Common;
+using Optimal.Common;
+using Optimal.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +12,36 @@ namespace WebAPIService.Controllers.Api
 {
     public class OptimalController : ApiController
     {
-        private readonly IOptimalRepository DAL;
+        private readonly IOptimalRepository optimalRepository;
+
+        public OptimalController()
+        {
+            this.optimalRepository = new OptimalDal();
+        }
+               
+        /// <summary>
+        /// get client by id and number, if clinet dont exists return statuc not found
+        /// </summary>
+        [Route("api/optimal/client/{clientId}/{contactNumber}")]
+        public HttpResponseMessage GetClientLogin(int clientId, string contactNumber)
+        {
+            try
+            {
+                var client = optimalRepository.GetClient(clientId, contactNumber);
+                return Request.CreateResponse(HttpStatusCode.OK, client);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
 
         [Route("api/optimal/lines/{clientId}")]
         public HttpResponseMessage GetLinesAmount(int clientId)
         {
             try
             {
-                var linesAmount = DAL.GetNumberOfLines(clientId);
+                var linesAmount = optimalRepository.GetNumberOfLines(clientId);
                 return Request.CreateResponse(HttpStatusCode.OK, linesAmount);
             }
             catch (Exception e)
@@ -31,7 +55,7 @@ namespace WebAPIService.Controllers.Api
         {
             try
             {
-                var recieptsSum = DAL.GetRecieptsSum(clientId);
+                var recieptsSum = optimalRepository.GetRecieptsSum(clientId);
                 return Request.CreateResponse(HttpStatusCode.OK, recieptsSum);
             }
             catch (Exception e)
@@ -45,7 +69,7 @@ namespace WebAPIService.Controllers.Api
         {
             try
             {
-                var callsToCenter = DAL.GetCallsToCenter(clientId);
+                var callsToCenter = optimalRepository.GetCallsToCenter(clientId);
                 return Request.CreateResponse(HttpStatusCode.OK, callsToCenter);
             }
             catch (Exception e)

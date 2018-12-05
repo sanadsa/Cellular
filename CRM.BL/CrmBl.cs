@@ -43,8 +43,8 @@ namespace CRM.BL
                 log.LogWrite("Add agent error: " + e.Message);
                 throw new Exception("Add agent exception: " + e.Message);
             }
-        }        
-
+        }
+               
         /// <summary>
         /// gets the client params from ui and calls the add client in server using http
         /// </summary>
@@ -522,7 +522,7 @@ namespace CRM.BL
                 log.LogWrite("Get packacge error: " + e.Message);
                 throw new Exception("Get package exception: " + e.Message);
             }
-        }
+        }            
 
         /// <summary>
         /// Get most called numbers in package

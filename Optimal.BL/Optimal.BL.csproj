@@ -47,6 +47,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{FEA0B662-185B-460B-8B09-ECECCC69C563}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Log\Log.csproj">
+      <Project>{5E214195-8AB5-4EA0-BD39-4130C939CEC1}</Project>
+      <Name>Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Optimal.Common\Optimal.Common.csproj">
       <Project>{11ECC73F-BD4F-4586-9012-8286ACEB19C4}</Project>
       <Name>Optimal.Common</Name>

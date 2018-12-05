@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Common;
+using Log;
+using Newtonsoft.Json;
 using Optimal.Common;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,40 @@ namespace Optimal.BL
 {
     public class OptimalBl : IOptimalManager
     {
-        string url = "http://localhost:11248/";
+        private string url = "http://localhost:11248/";
+        private LogWriter log = new LogWriter();
+
+        /// <summary>
+        /// get client for login
+        /// </summary>
+        public Client GetClient(int clientId, string contactNumber)
+        {
+            Client clientFromDb;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/optimal/client/" + clientId + "/" + contactNumber).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        clientFromDb = JsonConvert.DeserializeObject<Client>(response);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+                return clientFromDb;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get client error: " + e.Message);
+                throw new Exception("cant get client: " + e.Message);
+            }
+        }
 
         public double GetClientValue(int clientId)
         {
