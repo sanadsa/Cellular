@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// status of the line
+    /// </summary>
     public enum eStatus
     {
         available = 1,

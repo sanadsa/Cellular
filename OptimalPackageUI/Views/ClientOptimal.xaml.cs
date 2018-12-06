@@ -21,8 +21,10 @@ namespace OptimalPackageUI.Views
     /// </summary>
     public partial class ClientOptimal : Page
     {
-        public ClientOptimal()
+        public static int ClientID { get; private set; }
+        public ClientOptimal(int id)
         {
+            ClientID = id;
             InitializeComponent();
         }
     }

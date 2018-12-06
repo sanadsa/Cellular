@@ -13,6 +13,9 @@ namespace Common
         mostCalled
     };
 
+    /// <summary>
+    /// contains the call information for the call of the line
+    /// </summary>
     public class Call
     {
         private int callId;
@@ -32,7 +35,6 @@ namespace Common
             CallTo = callTo;
         }
 
-        // for ef
         private Call() { }
 
         public int LineID { get => lineId; set => lineId = value; }

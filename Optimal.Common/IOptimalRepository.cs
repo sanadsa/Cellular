@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Optimal.Common
 {
+    /// <summary>
+    /// interface for the dal of the optimal system
+    /// </summary>
     public interface IOptimalRepository
     {
         int GetNumberOfLines(int clientId);

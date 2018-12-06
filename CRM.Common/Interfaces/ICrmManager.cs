@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CRM.Common.Interfaces
 {
+    /// <summary>
+    /// interface for the ui of the CRM, implemented by the crmbl
+    /// </summary>
     public interface ICrmManager
     {
         // client

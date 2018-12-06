@@ -10,6 +10,9 @@ using System.Web.Http;
 
 namespace WebAPIService.Controllers.Api
 {
+    /// <summary>
+    /// controller that calls the dal of the optimal system
+    /// </summary>
     public class OptimalController : ApiController
     {
         private readonly IOptimalRepository optimalRepository;
@@ -18,7 +21,7 @@ namespace WebAPIService.Controllers.Api
         {
             this.optimalRepository = new OptimalDal();
         }
-               
+
         /// <summary>
         /// get client by id and number, if clinet dont exists return statuc not found
         /// </summary>
@@ -36,6 +39,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get number of lines that the client have
+        /// </summary>
         [Route("api/optimal/lines/{clientId}")]
         public HttpResponseMessage GetLinesAmount(int clientId)
         {
@@ -50,6 +56,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get receipt sum of the client
+        /// </summary>
         [Route("api/optimal/reciepts/{clientId}")]
         public HttpResponseMessage GetRecieptsSum(int clientId)
         {
@@ -64,6 +73,11 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get the number of calls that the client did to the center
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <returns></returns>
         [Route("api/optimal/callsToCenter/{clientId}")]
         public HttpResponseMessage GetCallsToCenter(int clientId)
         {

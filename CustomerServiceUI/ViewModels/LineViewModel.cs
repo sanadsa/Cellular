@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace CustomerServiceUI.ViewModels
 {
+    /// <summary>
+    /// view model for lines page
+    /// </summary>
    public class LineViewModel : ViewModelBase
    {
         private CrmBl bl = new CrmBl();

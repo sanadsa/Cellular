@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// most called numbers for package class
+    /// </summary>
     public class MostCalled
     {
         private int mostCalledId;
@@ -15,6 +18,7 @@ namespace Common
         private string secondNumber;
         private string thirdNumber;
 
+        
         public MostCalled(int packageId, string num1, string num2, string num3)
         {
             PackageId = packageId;

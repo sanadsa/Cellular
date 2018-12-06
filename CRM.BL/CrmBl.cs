@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using Common;
 using CRM.Common.Interfaces;
@@ -8,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace CRM.BL
 {
+    /// <summary>
+    /// Class that applies the crm system, implements the interface ICrmManager and calls methods by http call
+    /// </summary>
     public class CrmBl : ICrmManager
     {
         private string url = "http://localhost:11248/";
@@ -43,8 +47,8 @@ namespace CRM.BL
                 log.LogWrite("Add agent error: " + e.Message);
                 throw new Exception("Add agent exception: " + e.Message);
             }
-        }
-               
+        }              
+
         /// <summary>
         /// gets the client params from ui and calls the add client in server using http
         /// </summary>
@@ -345,7 +349,7 @@ namespace CRM.BL
                     }
                     else
                     {
-                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                        agent = null;
                     }
                 }
 
@@ -354,7 +358,7 @@ namespace CRM.BL
             catch (Exception e)
             {
                 log.LogWrite("Get agent error: " + e.Message);
-                throw new Exception("Get agent exception: " + e.Message);
+                throw new Exception(e.Message);
             }
         }
 
@@ -455,7 +459,7 @@ namespace CRM.BL
                 log.LogWrite("Get lines error: " + e.Message);
                 throw new Exception("Get lines exception: " + e.Message);
             }
-        }
+        }       
 
         /// <summary>
         /// Get template packages by http call

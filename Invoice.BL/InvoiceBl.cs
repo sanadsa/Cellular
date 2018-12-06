@@ -10,6 +10,9 @@ using OfficeOpenXml;
 
 namespace Invoice.BL
 {
+    /// <summary>
+    /// Class that applies the invoice system, implements the interface IInvoiceManager and calls methods by http call
+    /// </summary>
     public class InvoiceBl : IInvoiceManager
     {
         string url = "http://localhost:11248/";

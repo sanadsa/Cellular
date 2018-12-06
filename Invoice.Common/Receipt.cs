@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Invoice.Common
 {
+    /// <summary>
+    /// class that contains the fields of the receipt
+    /// </summary>
     public class Receipt
     {
         public string LineNumber { get; set; }

@@ -8,7 +8,7 @@ using Common;
 namespace CRM.Common.Interfaces
 {
     /// <summary>
-    /// interface for the CRM, implemented by the BL
+    /// interface for the CRM repository, implemented by the crmdal
     /// </summary>
     public interface ICrmRepository
     {

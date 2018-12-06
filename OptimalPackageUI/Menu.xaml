@@ -8,7 +8,7 @@
       Title="Menu" Height="431.346" Width="515.912">
 
     <Grid>
-        <Button Content="Client" HorizontalAlignment="Left" Margin="196,138,0,255" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Client_Click"/>
+        <Button Click="Client_Click" Content="Client" HorizontalAlignment="Left" Margin="196,138,0,255" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40"/>
         <Button Content="Employee" HorizontalAlignment="Left" Margin="196,182,0,211" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Employee_Click"/>
         <Button Content="Manager" HorizontalAlignment="Left" Margin="196,227,0,166" Width="130" RenderTransformOrigin="2.03,-1.077" Height="40" Click="Manager_Click"/>
 

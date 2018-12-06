@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace CustomerServiceUI.ViewModels
 {
+    /// <summary>
+    /// view model for customer page
+    /// </summary>
     public class CustomerViewModel : ViewModelBase
     {
         private readonly DelegateCommand saveCommand;
@@ -61,6 +64,9 @@ namespace CustomerServiceUI.ViewModels
 
         private CrmBl Bl = new CrmBl();
 
+        /// <summary>
+        /// init fields when opening customers page
+        /// </summary>
         public CustomerViewModel()
         {
             saveCommand = new DelegateCommand(OnSave, CanSave);

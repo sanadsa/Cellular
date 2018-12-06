@@ -25,11 +25,15 @@ namespace CustomerServiceUI
 
         private void Simulator_Click(object sender, RoutedEventArgs e)
         {
+            lblLoading.Visibility = Visibility.Visible;
+            lblLoading.Content = "Loading Simulator...";
             this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Simulator())), DispatcherPriority.ContextIdle);
         }
 
         private void Receipt_Click(object sender, RoutedEventArgs e)
         {
+            lblLoading.Visibility = Visibility.Visible;
+            lblLoading.Content = "Loading Receipt...";
             this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Receipt())), DispatcherPriority.ContextIdle);
         }
     }

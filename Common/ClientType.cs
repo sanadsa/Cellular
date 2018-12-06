@@ -27,8 +27,7 @@ namespace Common
             MinutePrice = minutePrice;
             SmsPrice = smsPrice;
         }
-
-        // for ef
+        
         public ClientType()
         {
 

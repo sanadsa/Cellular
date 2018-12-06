@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// template packages that the client can have or get them and change for his needs
+    /// </summary>
     public class TemplatePackage
     {
         public int Id { get; set; }

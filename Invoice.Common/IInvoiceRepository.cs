@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Invoice.Common
 {
+    /// <summary>
+    /// interface for the dal of the invoice, implemented by the invoicedal
+    /// </summary>
     public interface IInvoiceRepository
     {
         // simulator

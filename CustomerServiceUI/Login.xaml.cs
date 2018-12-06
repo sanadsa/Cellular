@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using CRM.BL;
 
 namespace CustomerServiceUI
@@ -18,7 +19,7 @@ namespace CustomerServiceUI
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : Page
     {
         public Login()
         {
@@ -28,13 +29,12 @@ namespace CustomerServiceUI
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             var bl = new CrmBl();
-            MainWindow mainWindow = new MainWindow();
             try
             {
-                if (bl.LoginAgent(txtAgentName.Text, txtPassword.Password) != null)
+                var agent = bl.LoginAgent(txtAgentName.Text, txtPassword.Password.ToString());
+                if (agent.AgentName == txtAgentName.Text)
                 {
-                    mainWindow.Show();
-                    this.Close();
+                    this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new Menu())), DispatcherPriority.ContextIdle);
                 }
                 else
                 {

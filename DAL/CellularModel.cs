@@ -4,7 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 
 namespace DAL
-{    
+{
+    /// <summary>
+    /// cellular context for tables in db
+    /// </summary>
     public class CellularModel : DbContext
     {
         public DbSet<Call> Calls { get; set; }

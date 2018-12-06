@@ -49,7 +49,7 @@ namespace CRM.DAL
                 throw new Exception("Add agent DAL exception: " + e.Message);
             }
         }
-       
+
         /// <summary>
         /// add client to db - if client idnumber or contact number exists in db dont add client
         /// </summary>
@@ -183,7 +183,7 @@ namespace CRM.DAL
                     //context.Lines.RemoveRange(client.Lines);
                     var client = context.Clients.Find(clientId);
                     context.Clients.Remove(client);
-                    
+
                     context.SaveChanges();
                 }
             }
@@ -213,9 +213,8 @@ namespace CRM.DAL
                 log.LogWrite("Delete line Dal error: " + e.Message);
                 throw new Exception("Delete line exception: " + e.Message);
             }
-        }   
-           
-        // check what happens if update contactNum/Idnum to an existing one
+        }
+
         /// <summary>
         /// Update existing client in db by client id
         /// </summary>
@@ -227,7 +226,7 @@ namespace CRM.DAL
             {
                 using (CellularModel context = new CellularModel())
                 {
-                    var clientInDb = context.Clients.SingleOrDefault(c =>c.ClientID == clientId);
+                    var clientInDb = context.Clients.SingleOrDefault(c => c.ClientID == clientId);
                     if (clientInDb == null)
                     {
                         throw new Exception("Client not found");
@@ -239,7 +238,7 @@ namespace CRM.DAL
                     clientInDb.IdNumber = newClient.IdNumber;
                     clientInDb.LastName = newClient.LastName;
                     clientInDb.CallsToCenter = newClient.CallsToCenter;
-                    
+
                     context.SaveChanges();
                     return newClient;
                 }
@@ -345,7 +344,7 @@ namespace CRM.DAL
                 throw new Exception("Update Agent DAL exception: " + e.Message);
             }
         }
-        
+
         /// <summary>
         /// Login by checking if agent exists in db and password correct
         /// </summary>
@@ -356,14 +355,8 @@ namespace CRM.DAL
                 using (CellularModel context = new CellularModel())
                 {
                     var agentFromDb = context.ServiceAgents.SingleOrDefault(a => (a.AgentName == name && a.Password == password));
-                    if (agentFromDb == null)
-                    {
-                        throw new Exception("User not exists, check username and password");
-                    }
-                    else
-                    {
-                        return agentFromDb;
-                    }
+
+                    return agentFromDb;
                 }
             }
             catch (Exception e)
@@ -373,6 +366,10 @@ namespace CRM.DAL
             }
         }
 
+        /// <summary>
+        /// get all client from db
+        /// </summary>
+        /// <returns>a list of type client</returns>
         public List<Client> GetClients()
         {
             try

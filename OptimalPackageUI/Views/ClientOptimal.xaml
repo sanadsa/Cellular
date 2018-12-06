@@ -10,7 +10,7 @@
       Title="ClientOptimal" Height="470" Width="300">
 
     <Page.DataContext>
-        <ViewModels:LoginViewModel/>
+        <ViewModels:OptimalClientViewModel/>
     </Page.DataContext>
     
     <Grid>
@@ -19,9 +19,9 @@
             <Label Content="Choose Line To See Optimal Package" FontSize="15" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Connected Client Name" FontSize="16"/>
-            <TextBox Height="25" Margin="0,0,116,0"></TextBox>
+            <TextBox Text="{Binding ClientName}" Height="25" Margin="0,0,116,0"></TextBox>
             <Label Content="Line" FontSize="16"/>
-            <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" FontSize="13" Height="24" Margin="0,0,116,0">
+            <ComboBox ItemsSource="{Binding Lines}" FontSize="13" Height="24" Margin="0,0,116,0">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -33,14 +33,13 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Content="Duration" FontSize="16"/>
-            <TextBox Text="{Binding Duration}" FontSize="15"/>
+            <TextBox FontSize="15"/>
             <Label Content="Phone Number" FontSize="16"/>
-            <TextBox Text="{Binding PhoneNumber}" FontSize="15"/>
+            <TextBox FontSize="15"/>
             <Label Content="Call/SMS To" FontSize="16"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding CallTo}" FontSize="15" Height="24" Margin="0,0,116,0" />
-            <CheckBox IsChecked="{Binding IsSms}" FontSize="16" Content="SMS"/>
+            <CheckBox FontSize="16" Content="SMS"/>
             <Separator></Separator>
-            <Button Command="{Binding SimulateCommand}" Content="Simulate" Margin="60 10" FontSize="18"/>
+            <Button Content="Calculate" Margin="60 10" FontSize="18"/>
         </StackPanel>
     </Grid>
 </Page>

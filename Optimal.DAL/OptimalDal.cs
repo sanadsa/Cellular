@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Optimal.DAL
 {
+    /// <summary>
+    /// Class that applies the optimal system, implements the interface IOptimalRepository using entity framework (DBcontext CellularModel)
+    /// </summary>
     public class OptimalDal : IOptimalRepository
     {
         public int GetCallsToCenter(int clientId)
@@ -50,11 +53,17 @@ namespace Optimal.DAL
             }
         }
 
+        /// <summary>
+        /// gets number of lines that the client have - by client id
+        /// </summary>
         public int GetNumberOfLines(int clientId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// gets total price of the receipt for the client
+        /// </summary>
         public double GetRecieptsSum(int clientId)
         {
             throw new NotImplementedException();

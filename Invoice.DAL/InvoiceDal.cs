@@ -10,10 +10,16 @@ using Log;
 
 namespace Invoice.DAL
 {
+    /// <summary>
+    /// Class that applies the invoice system, implements the interface IInvoiceRepository using entity framework (DBcontext CellularModel)
+    /// </summary>
     public class InvoiceDal : IInvoiceRepository
     {
         LogWriter log = new LogWriter();
 
+        /// <summary>
+        /// adds call to db
+        /// </summary>
         public Call AddCall(Call call)
         {
             try
@@ -38,6 +44,9 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// adds payment to db
+        /// </summary>
         public Payment AddPayment(Payment payment)
         {
             try
@@ -62,6 +71,9 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// adds sms to sms table in db
+        /// </summary>
         public SMS AddSms(SMS sms)
         {
             try
@@ -86,6 +98,10 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// gets all sms from sms table in db by lineid and month
+        /// </summary>
+        /// <returns>list of sms</returns>
         public IEnumerable<SMS> GetAllSms(int lineId, int month)
         {
             try
@@ -108,6 +124,10 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// gets all calls from Calls table in db by lineid and month
+        /// </summary>
+        /// <returns>list of call</returns>
         public IEnumerable<Call> GetCalls(int lineId, int month)
         {
             try
@@ -130,6 +150,9 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// get client type (vip,bussines...) by line id
+        /// </summary>
         public ClientType GetClientType(int lineId)
         {
             try
@@ -154,6 +177,11 @@ namespace Invoice.DAL
             }
         }
 
+        /// <summary>
+        /// get package from db by line id
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <returns></returns>
         public Package GetPackage(int lineId)
         {
             using (CellularModel context = new CellularModel())

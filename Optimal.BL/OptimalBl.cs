@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Optimal.BL
 {
+    /// <summary>
+    /// Class that applies the optimal system, implements the interface IOptimalManager and calls methods by http call
+    /// </summary>
     public class OptimalBl : IOptimalManager
     {
         private string url = "http://localhost:11248/";
@@ -48,6 +51,9 @@ namespace Optimal.BL
             }
         }
 
+        /// <summary>
+        /// get client value by client id - calculated by numberOfLines, receiptSum and callsToCenter
+        /// </summary>
         public double GetClientValue(int clientId)
         {
             double clientValue = 0;

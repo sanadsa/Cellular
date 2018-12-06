@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Invoice.Common
 {
+    /// <summary>
+    /// interface for the ui of the invoice, implemented by the invoiceBl
+    /// </summary>
     public interface IInvoiceManager
     {
         // simulator

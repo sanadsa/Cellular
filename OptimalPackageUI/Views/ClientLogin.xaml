@@ -19,11 +19,11 @@
             <Label Content="Client Login" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Client ID"/>
-            <TextBox Text="{Binding ClientId}" FontSize="18"/>
+            <TextBox Text="{Binding IdNumber}" FontSize="18"/>
             <Label Content="Contact Number"/>
             <TextBox Text="{Binding ContactNumber}" FontSize="18"/>
             <Button Command="{Binding LoginCommand}" Content="Check CLient" Margin="60 10" FontSize="18"/>
-            <Button  Click="Button_Click" Content="Submit" Margin="60 10" FontSize="18"/>
+            <Button Tag="{Binding ConnectedClient.ClientID}" IsEnabled="{Binding IsClientExists}" Click="Button_Click" Content="Submit" Margin="60 10" FontSize="18"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -10,13 +10,18 @@ using WebAPIService.Controllers.Api;
 
 namespace TestCrm.UnitTests
 {
-
+    /// <summary>
+    /// test class to unit test methods in crmdal
+    /// </summary>
     [TestClass]
     public class CrmDalTestss
     {
         Mock<ICrmRepository> mockCrmRepository = new Mock<ICrmRepository>();
         CRMController controller;
 
+        /// <summary>
+        /// test createserviceagent method in the dal by creating mock for db
+        /// </summary>
         [TestMethod]
         public void CreateServiceAgent_LineAvailable_ReturnLine()
         {
@@ -32,6 +37,9 @@ namespace TestCrm.UnitTests
             Assert.AreEqual("sirage", result.AgentName);
         }
 
+        /// <summary>
+        /// test createclient method in the dal by creating mock for db
+        /// </summary>
         [TestMethod]
         public void CreateClient_ClientAvailable_ClientResponse()
         {
@@ -50,6 +58,9 @@ namespace TestCrm.UnitTests
             Assert.IsNotNull(response);
         }
 
+        /// <summary>
+        /// test createline method in the dal by creating mock for db
+        /// </summary>
         [TestMethod]
         public void CreateLine_LineAvailable_LineResponse()
         {
@@ -68,6 +79,9 @@ namespace TestCrm.UnitTests
             Assert.IsNotNull(response);
         }
 
+        /// <summary>
+        /// test getline method in the dal by creating mock for db
+        /// </summary>
         [TestMethod]
         public void GetLine_GetLineById_LineResponse()
         {
@@ -87,6 +101,9 @@ namespace TestCrm.UnitTests
             Assert.IsNotNull(response);
         }
 
+        /// <summary>
+        /// test getLines method in the dal by creating mock for db
+        /// </summary>
         [TestMethod]
         public void GetLines_GetClientLines_LinesResponse()
         {

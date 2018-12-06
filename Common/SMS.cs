@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// sms for line
+    /// </summary>
     public class SMS
     {
         private int smsID;

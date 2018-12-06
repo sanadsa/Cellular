@@ -28,8 +28,7 @@ namespace OptimalPackageUI.Views
                 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ClientOptimal());
-
+            NavigationService.Navigate(new ClientOptimal(Convert.ToInt32(((Button)sender).Tag)));
         }
     }
 }

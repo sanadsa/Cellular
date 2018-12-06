@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// payment for line class
+    /// </summary>
     public class Payment
     {
         private int paymentId;
@@ -14,6 +17,9 @@ namespace Common
         private DateTime month;
         private double totalPayment;
 
+        /// <summary>
+        /// constructor that initializes the Payment data member 
+        /// </summary>
         public Payment(int clientID, DateTime month, double totalPayment)
         {
             ClientID = clientID;

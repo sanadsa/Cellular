@@ -13,6 +13,9 @@ using System.Runtime.InteropServices;
 
 namespace CustomerServiceUI.ViewModels
 {
+    /// <summary>
+    /// view model for receipt page and simulator page
+    /// </summary>
     class ReceiptViewModel : ViewModelBase
     {
         private CrmBl crmBl = new CrmBl();
@@ -79,6 +82,9 @@ namespace CustomerServiceUI.ViewModels
         private bool isExport = false;
         public bool IsExport { get => isExport; set => SetProperty(ref isExport, value); }
 
+        /// <summary>
+        /// init fields when opening the receipt page
+        /// </summary>
         public ReceiptViewModel()
         {
             simulateCommand = new DelegateCommand(OnSimulate, CanSimulate);
@@ -94,6 +100,9 @@ namespace CustomerServiceUI.ViewModels
             selectedReceipt = new Receipt();
         }
 
+        /// <summary>
+        /// reset feilds in simulator page
+        /// </summary>
         private void Reset()
         {
             IsSms = false;
@@ -148,7 +157,7 @@ namespace CustomerServiceUI.ViewModels
         }
 
         /// <summary>
-        /// simulate call
+        /// simulate call or sms
         /// </summary>
         private void OnSimulate(object obj)
         {

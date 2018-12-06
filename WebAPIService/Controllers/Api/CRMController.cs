@@ -11,6 +11,9 @@ using System.Web.Http.Results;
 
 namespace WebAPIService.Controllers.Api
 {
+    /// <summary>
+    /// controller that calls the dal of the crm
+    /// </summary>
     public class CRMController : ApiController
     {
         private readonly ICrmRepository DAL;
@@ -19,7 +22,10 @@ namespace WebAPIService.Controllers.Api
         {
             DAL = crmRepository;
         }
-        
+
+        /// <summary>
+        /// add service agent to db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/agent")]
         public ServiceAgent CreateServiceAgent([FromBody]ServiceAgent agent)
@@ -34,6 +40,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// add client to db
+        /// </summary>
         [HttpPost]
         [Route("api/crm/client")]
         public HttpResponseMessage CreateClient([FromBody]Client client)
@@ -69,7 +78,7 @@ namespace WebAPIService.Controllers.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
             }
@@ -119,6 +128,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// update existing agent
+        /// </summary>
         [HttpPut]
         [Route("api/crm/agent/{agentId}")]
         public void UpdateServiceAgent([FromBody]ServiceAgent agent, int agentId)
@@ -131,6 +143,9 @@ namespace WebAPIService.Controllers.Api
             DAL.UpdateServiceAgent(agent, agentId);
         }
 
+        /// <summary>
+        /// update status of an existing line
+        /// </summary>
         [HttpPut]
         [Route("api/crm/line/{status}")]
         public void UpdateLineStatus([FromBody]int lineId, eStatus status)
@@ -143,6 +158,9 @@ namespace WebAPIService.Controllers.Api
             DAL.UpdateLine(lineId, status);
         }
 
+        /// <summary>
+        /// update existing client
+        /// </summary>
         [HttpPut]
         [Route("api/crm/client/{clientId}")]
         public void UpdateClient([FromBody]Client client, int clientId)
@@ -155,6 +173,9 @@ namespace WebAPIService.Controllers.Api
             DAL.UpdateClient(client, clientId);
         }
 
+        /// <summary>
+        /// update existing package
+        /// </summary>
         [HttpPut]
         [Route("api/crm/package/{packageId}")]
         public void UpdatePackage([FromBody]Package package, int packageId)
@@ -167,6 +188,9 @@ namespace WebAPIService.Controllers.Api
             DAL.UpdatePackage(package, packageId);
         }
 
+        /// <summary>
+        /// delete existing client
+        /// </summary>
         [HttpDelete]
         [Route("api/crm/delete/{clientId}")]
         public void DeleteClient(int clientId)
@@ -181,6 +205,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// delete existing line
+        /// </summary>
         [HttpDelete]
         [Route("api/crm/line/d/{lineId}")]
         public void DeleteLine(int lineId)
@@ -195,6 +222,9 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// get all clients from db
+        /// </summary>
         [Route("api/crm/clients")]
         public HttpResponseMessage GetClients()
         {
@@ -329,6 +359,10 @@ namespace WebAPIService.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// login for userr agent 
+        /// </summary>
+        [AcceptVerbs("GET", "POST")]
         [Route("api/crm/agent/{agentName}/{password}")]
         public IHttpActionResult Login(string agentName, string password)
         {

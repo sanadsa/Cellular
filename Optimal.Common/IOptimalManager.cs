@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Optimal.Common
 {
+    /// <summary>
+    /// interface for the ui of the optimal system
+    /// </summary>
     public interface IOptimalManager
     {
         Client GetClient(int clientId, string contactNumber);

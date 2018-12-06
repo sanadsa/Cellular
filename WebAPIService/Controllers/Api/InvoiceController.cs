@@ -10,6 +10,9 @@ using System.Web.Http;
 
 namespace WebAPIService.Controllers.Api
 {
+    /// <summary>
+    /// controller that calls the dal of the invoice
+    /// </summary>
     public class InvoiceController : ApiController
     {
         private readonly IInvoiceRepository DAL;
