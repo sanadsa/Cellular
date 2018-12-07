@@ -25,7 +25,7 @@ namespace OptimalPackageUI
 
         private void Employee_Click(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new EmployeeLogin())), DispatcherPriority.ContextIdle);
+            this.Dispatcher.Invoke(new Action(() => NavigationService.Navigate(new EmployeeOptimal())), DispatcherPriority.ContextIdle);
         }
 
         private void Manager_Click(object sender, RoutedEventArgs e)

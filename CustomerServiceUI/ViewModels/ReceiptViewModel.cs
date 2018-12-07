@@ -23,10 +23,8 @@ namespace CustomerServiceUI.ViewModels
 
         private readonly DelegateCommand simulateCommand;
         public ICommand SimulateCommand { get => simulateCommand; }
-
         private readonly DelegateCommand calcCommand;
         public ICommand CalcCommand { get => calcCommand; }
-
         private readonly DelegateCommand exportCommand;
         public ICommand ExportCommand { get => exportCommand; }
 

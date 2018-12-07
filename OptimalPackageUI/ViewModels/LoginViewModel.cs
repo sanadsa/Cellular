@@ -17,7 +17,7 @@ namespace OptimalPackageUI.ViewModels
         private OptimalBl optimalBl = new OptimalBl();
 
         private readonly DelegateCommand loginCommand;
-        public ICommand LoginCommand { get => loginCommand; }        
+        public ICommand LoginCommand { get => loginCommand; }
 
         private int idNumber;
         public int IdNumber { get => idNumber; set => SetProperty(ref idNumber, value); }
@@ -34,7 +34,7 @@ namespace OptimalPackageUI.ViewModels
         public LoginViewModel()
         {
             loginCommand = new DelegateCommand(OnLogin);
-            //connectedClient = new Client();
+            connectedClient = new Client();
         }
 
         private void OnLogin(object obj)

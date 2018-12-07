@@ -14,6 +14,9 @@ namespace Optimal.DAL
     /// </summary>
     public class OptimalDal : IOptimalRepository
     {
+        /// <summary>
+        /// get number of calls to center by the client
+        /// </summary>
         public int GetCallsToCenter(int clientId)
         {
             try

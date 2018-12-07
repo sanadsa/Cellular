@@ -111,5 +111,124 @@ namespace Optimal.BL
                 throw new Exception("Get client value exception: " + e.Message);
             }
         }
+
+        /// <summary>
+        /// get all values for optimal package by line
+        /// </summary>
+        public Recommendation GetOptimalCalc(int lineId)
+        {
+            Recommendation recommendation;
+            List<Call> calls;
+            List<SMS> sms;
+            Package package;
+            List<TemplatePackage> templates;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/invoice/package/" + lineId).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        package = JsonConvert.DeserializeObject<Package>(response);
+                    }
+                    else
+                    {
+                        package = null;
+                    }
+
+                    result = client.GetAsync("api/crm/templates").Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        templates = JsonConvert.DeserializeObject<List<TemplatePackage>>(response);
+                    }
+                    else
+                    {
+                        throw new Exception(result.Content.ReadAsStringAsync().Result);
+                    }
+
+                    result = client.GetAsync("api/invoice/calls/" + lineId + "/" + DateTime.Now.Month).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        calls = JsonConvert.DeserializeObject<List<Call>>(response);
+                    }
+                    else
+                    {
+                        throw new Exception("cant get calls");
+                    }
+
+                    result = client.GetAsync("api/invoice/sms/" + lineId + "/" + DateTime.Now).Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        sms = JsonConvert.DeserializeObject<List<SMS>>(response);
+                    }
+                    else
+                    {
+                        sms = null;
+                    }
+                }
+
+                recommendation = new Recommendation
+                {
+                    TotalMins = 0,
+                    TotalSMS = 0,
+                    TopMinsTopNum = 0,
+                    TopMinsFamily = 0,
+                    TopMinsMostCalled = 0
+                };
+
+                foreach (var item in calls)
+                {
+                    recommendation.TotalMins += item.Duration;
+                }
+                if (sms != null)
+                {
+                    recommendation.TotalSMS = sms.Capacity;
+                }
+
+                if (package != null)
+                {
+                    foreach (var call in calls)
+                    {
+                        if (call.CallTo == eCallTo.mostCalled)
+                        {
+                            recommendation.TopMinsTopNum += call.Duration;
+                        }
+                        else if (call.CallTo == eCallTo.family)
+                        {
+                            recommendation.TopMinsFamily += call.Duration;
+                        }
+                        else if (call.CallTo == eCallTo.friends)
+                        {
+                            recommendation.TopMinsMostCalled += call.Duration;
+                        }
+                    }
+                }
+
+                if (recommendation.TopMinsFamily > recommendation.TopMinsMostCalled && recommendation.TopMinsFamily > recommendation.TopMinsTopNum)
+                {
+                    recommendation.FirstRecommendation = templates[0];
+                    recommendation.SecondRecommendation = templates[1];
+                    recommendation.ThirdRecommendation = templates[2];
+                }
+                else
+                {
+                    recommendation.FirstRecommendation = templates[1];
+                    recommendation.SecondRecommendation = templates[0];
+                    recommendation.ThirdRecommendation = templates[2];
+                }
+
+                return recommendation;
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get Recommendation error: " + e.Message);
+                throw new Exception("Get Recommendation Exception: " + e.Message);
+            }
+        }
     }
 }

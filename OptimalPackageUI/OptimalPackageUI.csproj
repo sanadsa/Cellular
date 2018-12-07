@@ -141,9 +141,17 @@
       <Project>{F5B80959-41E5-45C7-9AA3-D4D02662C9AC}</Project>
       <Name>CRM.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Invoice.BL\Invoice.BL.csproj">
+      <Project>{8D239DD7-6D94-4C59-B762-6A2DB58288D3}</Project>
+      <Name>Invoice.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Optimal.BL\Optimal.BL.csproj">
       <Project>{B1F5A5C0-62DB-4C3F-9857-D59E36B166B8}</Project>
       <Name>Optimal.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Optimal.Common\Optimal.Common.csproj">
+      <Project>{11ECC73F-BD4F-4586-9012-8286ACEB19C4}</Project>
+      <Name>Optimal.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

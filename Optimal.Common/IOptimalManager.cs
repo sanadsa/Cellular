@@ -14,5 +14,6 @@ namespace Optimal.Common
     {
         Client GetClient(int clientId, string contactNumber);
         double GetClientValue(int clientId);
+        Recommendation GetOptimalCalc(int lineId);
     }
 }

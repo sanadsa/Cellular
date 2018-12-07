@@ -4,11 +4,97 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:OptimalPackageUI.Views"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="EmployeeOptimal">
+      xmlns:ViewModels="clr-namespace:OptimalPackageUI.ViewModels"     
+      mc:Ignorable="d"
+      Title="EmployeeOptimal" Height="700" Width="390.524">
 
-    <Grid>
-        
+    <Page.DataContext>
+        <ViewModels:OptimalClientViewModel/>
+    </Page.DataContext>
+    
+    <Grid Margin="0,0,0,18">
+        <StackPanel Margin="10">
+            <Label Content="Optimal Package" FontSize="25" HorizontalAlignment="Center"/>
+            <Label Content="Choose Client And Line To See Optimal Package" FontSize="15" HorizontalAlignment="Center"/>
+            <Separator></Separator>
+            <Label Content="Clients" Margin="113,0,46,0"/>
+            <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" FontSize="13" Height="24" Margin="113,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding IdNumber}"></TextBlock>
+                            <TextBlock Text="-"></TextBlock>
+                            <TextBlock Text="{Binding ClientName}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="Lines" Margin="113,0"/>
+            <ComboBox ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}" FontSize="13" Height="24" Margin="113,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Number}"></TextBlock>
+                            <TextBlock Text="-"></TextBlock>
+                            <TextBlock Text="{Binding Status}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Separator></Separator>
+            <Button Command="{Binding CalcCommand}" Content="Calculate" Margin="113,10" FontSize="14"/>
+        </StackPanel>
+        <ListBox  HorizontalAlignment="Left" Margin="10,239,0,10" Width="368">
+            <StackPanel Orientation="Vertical" Width="328">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Client Value" Width="100" FontWeight="Bold" VerticalAlignment="Top"/>
+                    <Label Content="{Binding ClientValue}" Width="90" FontWeight="Bold" VerticalAlignment="Top"/>
+                    <Label FontWeight="Bold" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Price" Width="100" FontWeight="Bold" VerticalAlignment="Top"/>
+                    <Label Content="{Binding TotalPrice}" Width="90" FontWeight="Bold" VerticalAlignment="Top"/>
+                    <Label FontWeight="Bold" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Total Minutes" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Total SMS" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Optimal.TotalMins}" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="{Binding Optimal.TotalSMS}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <Label Content="Top Minutes Of Top Number" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="{Binding Optimal.TopMinsTopNum}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Total Minutes With Family" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="{Binding Optimal.TopMinsFamily}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Recommendation" FontWeight="Bold" VerticalAlignment="Top"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Package 1" Width="120" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Price " Width="100" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Optimal.FirstRecommendation.PackageName}" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="{Binding Optimal.FirstRecommendation.TotalPrice}" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Package 2" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Price " Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Optimal.SecondRecommendation.PackageName}" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="{Binding Optimal.SecondRecommendation.TotalPrice}" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Package 3" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Price " Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Optimal.ThirdRecommendation.PackageName}" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="{Binding Optimal.ThirdRecommendation.TotalPrice}" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+            </StackPanel>
+        </ListBox>
     </Grid>
 </Page>
