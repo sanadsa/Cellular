@@ -46,9 +46,13 @@ namespace OptimalPackageUI.ViewModels
             get => selectedLine; set
             {
                 SetProperty(ref selectedLine, value);
+                IsCalc = true;
                 calcCommand.InvokeCanExecuteChanged();
             }
         }
+
+        private bool isCalc = false;
+        public bool IsCalc { get => isCalc; set => SetProperty(ref isCalc, value); }
 
         private Client selectedClient = null;
         public Client SelectedClient
@@ -59,6 +63,9 @@ namespace OptimalPackageUI.ViewModels
                 Optimal = new Recommendation();
                 Lines = crmBl.GetClientLines(SelectedClient.ClientID);
                 ClientValue = optimalBl.GetClientValue(SelectedClient.ClientID);
+                IsCalc = false;
+                TotalPrice = 0;
+                calcCommand.InvokeCanExecuteChanged();
             }
         }
 
@@ -103,11 +110,12 @@ namespace OptimalPackageUI.ViewModels
 
         private bool CanCalc(object arg)
         {
-            if (SelectedLine.ClientId != 0)
-            {
-                return true;
-            }
-            return false;
+            //if (SelectedLine.ClientId != 0)
+            //{
+            //    return true;
+            //}
+            //return false;
+            return true;
         }
     }
 }

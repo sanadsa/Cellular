@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:OptimalPackageUI"
         mc:Ignorable="d" Source="Menu.xaml"
         ResizeMode="NoResize"
-        Title="MainWindow" Height="680" Width="610">
+        Title="MainWindow" Height="717" Width="611">
 </NavigationWindow>

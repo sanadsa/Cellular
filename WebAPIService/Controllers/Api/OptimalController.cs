@@ -91,5 +91,48 @@ namespace WebAPIService.Controllers.Api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
             }
         }
+
+        /// <summary>
+        /// gets list of most calling clients to center
+        /// </summary>
+        [Route("api/optimal/callingToCenter")]
+        public HttpResponseMessage GetMostCallingToCenter()
+        {
+            try
+            {
+                var mostCalling = optimalRepository.GetMostCalling();
+                return Request.CreateResponse(HttpStatusCode.OK, mostCalling);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// gets list of best agents - the ones who sold highest amount of lines 
+        /// calling the optimal repository
+        /// </summary>
+        [Route("api/optimal/bestSellers")]
+        public HttpResponseMessage GetBestSellers()
+        {
+            try
+            {
+                var bestSellers = optimalRepository.GetBestSellers();
+                return Request.CreateResponse(HttpStatusCode.OK, bestSellers);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
     }
 }

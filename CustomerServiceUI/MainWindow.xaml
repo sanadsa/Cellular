@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:CustomerServiceUI"
         mc:Ignorable="d" Source="Menu.xaml"
         ResizeMode="NoResize"
-        Title="MainWindow" Height="680" Width="610">
+        Title="MainWindow" Height="717" Width="610">
 </NavigationWindow>

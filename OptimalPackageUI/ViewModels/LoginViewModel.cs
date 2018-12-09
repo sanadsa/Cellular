@@ -18,9 +18,17 @@ namespace OptimalPackageUI.ViewModels
 
         private readonly DelegateCommand loginCommand;
         public ICommand LoginCommand { get => loginCommand; }
+        private readonly DelegateCommand employeeLoginCommand;
+        public ICommand EmployeeLoginCommand { get => employeeLoginCommand; }
 
         private int idNumber;
         public int IdNumber { get => idNumber; set => SetProperty(ref idNumber, value); }
+
+        private string agentName;
+        public string AgentName { get => agentName; set => SetProperty(ref agentName, value); }
+
+        private string password;
+        public string Password { get => password; set => SetProperty(ref password, value); }
 
         private string contactNumber;
         public string ContactNumber { get => contactNumber; set => SetProperty(ref contactNumber, value); }
@@ -34,12 +42,40 @@ namespace OptimalPackageUI.ViewModels
         public LoginViewModel()
         {
             loginCommand = new DelegateCommand(OnLogin);
+            employeeLoginCommand = new DelegateCommand(OnEmployeeLogin);
             connectedClient = new Client();
+        }
+
+        private void OnEmployeeLogin(object obj)
+        {
+            try
+            {
+                if (AgentName == null || AgentName == "" || Password == null || Password == "")
+                {
+                    MessageBox.Show("Fill name and password");
+                }
+                else
+                {
+                    var agent = bl.LoginAgent(AgentName, Password);
+                    if (agent != null)
+                    {
+                        MessageBox.Show("Login Succeeded");
+                        IsClientExists = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Agent name or password incorrect");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void OnLogin(object obj)
         {
-            MainWindow mainWindow = new MainWindow();
             try
             {
                 if (IdNumber == 0 || ContactNumber == null || ContactNumber == "")
@@ -56,7 +92,7 @@ namespace OptimalPackageUI.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Agent name or password incorrect");
+                        MessageBox.Show("client id or number incorrect");
                     }
                 }
             }

@@ -31,7 +31,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Label Content="Number" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="171,156,0,0"/>
-        <TextBox Text="{Binding SelectedLine.Number}" Name="txtNumber" HorizontalAlignment="Left" Height="23" Margin="252,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <TextBox IsEnabled="{Binding IsNumberEnabled}" Text="{Binding SelectedLine.Number}" Name="txtNumber" HorizontalAlignment="Left" Height="23" Margin="252,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
         <Button Command="{Binding AddCommand}" Content="Add Line" HorizontalAlignment="Left" Margin="76,557,0,0" VerticalAlignment="Top" Width="76"/>
         <Button Command="{Binding UpdateCommand}" Content="Update" HorizontalAlignment="Left" Margin="192,557,0,0" VerticalAlignment="Top" Width="76"/>
         <Button Command="{Binding DeleteCommand}" Content="Delete" HorizontalAlignment="Left" Margin="300,557,0,0" VerticalAlignment="Top" Width="76"/>

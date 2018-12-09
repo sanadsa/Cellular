@@ -14,8 +14,8 @@ namespace CustomerServiceUI.ViewModels
     /// <summary>
     /// view model for lines page
     /// </summary>
-   public class LineViewModel : ViewModelBase
-   {
+    public class LineViewModel : ViewModelBase
+    {
         private CrmBl bl = new CrmBl();
         private int clientId;
 
@@ -42,7 +42,7 @@ namespace CustomerServiceUI.ViewModels
             get => selectedTemplate; set
             {
                 SetProperty(ref selectedTemplate, value);
-                SelectedPackage = new Package(SelectedTemplate.PackageName, 1, SelectedTemplate.TotalPrice,
+                SelectedPackage = new Package(SelectedTemplate.PackageName, 0, SelectedTemplate.TotalPrice,
                     new DateTime(), SelectedTemplate.MaxMinute, SelectedTemplate.MinutePrice, SelectedTemplate.Discount,
                     SelectedTemplate.FavoriteNumber, SelectedTemplate.MostCalledNumbers, SelectedTemplate.FamilyDiscount);
             }
@@ -63,10 +63,22 @@ namespace CustomerServiceUI.ViewModels
                 }
                 else
                 {
-                    SelectedPackage = bl.GetPackage(SelectedLine.LineId);
-                    SelectedNumbers = bl.GetMostCalledNums(SelectedPackage.PackageId);
-                    IsPackage = true;
+                    if (bl.GetPackage(SelectedLine.LineId) != null)
+                    {
+                        SelectedPackage = bl.GetPackage(SelectedLine.LineId);
+                        if (SelectedPackage.MostCalledNums)
+                        {
+                            SelectedNumbers = bl.GetMostCalledNums(SelectedPackage.PackageId);
+                        }
+                        IsPackage = true;
+                    }
+                    else
+                    {
+                        SelectedPackage = new Package();
+                        IsPackage = false;
+                    }
                 }
+                IsNumberEnabled = false;
             }
         }
 
@@ -76,29 +88,33 @@ namespace CustomerServiceUI.ViewModels
             get => selectedPackage; set
             {
                 SetProperty(ref selectedPackage, value);
-                FamilyDiscount = SelectedPackage.FamilyDiscount;
-                MostCalledNums = SelectedPackage.MostCalledNums;
-                FavoriteNum = SelectedPackage.FavoriteNumber;
-                PriceMinute = SelectedPackage.MinutePrice;
-                TotalPayment = SelectedPackage.TotalPrice;
+                if (SelectedPackage != null)
+                {
+                    FamilyDiscount = SelectedPackage.FamilyDiscount;
+                    MostCalledNums = SelectedPackage.MostCalledNums;
+                    FavoriteNum = SelectedPackage.FavoriteNumber;
+                    PriceMinute = SelectedPackage.MinutePrice;
+                    TotalPayment = SelectedPackage.TotalPrice;
+                }
             }
         }
-
         private MostCalled selectedNumbers;
         public MostCalled SelectedNumbers { get => selectedNumbers; set => SetProperty(ref selectedNumbers, value); }
-        
+
         private double priceMinute;
         public double PriceMinute
         {
             get => priceMinute; set
             {
                 SetProperty(ref priceMinute, value);
-                TotalPayment += priceMinute;
+                CalcPrice();
             }
         }
 
         private bool familyDiscount = false;
-        public bool FamilyDiscount { get => familyDiscount; set
+        public bool FamilyDiscount
+        {
+            get => familyDiscount; set
             {
                 SetProperty(ref familyDiscount, value);
                 if (familyDiscount)
@@ -130,7 +146,10 @@ namespace CustomerServiceUI.ViewModels
         }
 
         private bool favoriteNum = false;
-        public bool FavoriteNum { get => favoriteNum; set {
+        public bool FavoriteNum
+        {
+            get => favoriteNum; set
+            {
                 SetProperty(ref favoriteNum, value);
                 if (favoriteNum)
                 {
@@ -144,7 +163,9 @@ namespace CustomerServiceUI.ViewModels
         }
 
         private double totalPayment;
-        public double TotalPayment { get => totalPayment; set
+        public double TotalPayment
+        {
+            get => totalPayment; set
             {
                 SetProperty(ref totalPayment, value);
             }
@@ -152,6 +173,9 @@ namespace CustomerServiceUI.ViewModels
 
         private bool isPackage = false;
         public bool IsPackage { get => isPackage; set => SetProperty(ref isPackage, value); }
+
+        private bool isNumberEnabled = true;
+        public bool IsNumberEnabled { get => isNumberEnabled; set => SetProperty(ref isNumberEnabled, value); }
 
         /// <summary>
         /// ctor initializes the fields, gets line from db
@@ -185,8 +209,10 @@ namespace CustomerServiceUI.ViewModels
             SelectedNumbers = new MostCalled();
             IsPackage = false;
             TotalPayment = 0;
+            IsNumberEnabled = true;
+            SelectedTemplate = new TemplatePackage();
         }
-       
+
         /// <summary>
         /// checks if update button is enable
         /// </summary>
@@ -201,16 +227,36 @@ namespace CustomerServiceUI.ViewModels
         }
 
         /// <summary>
+        /// calc the package price
+        /// </summary>
+        private void CalcPrice()
+        {
+            TotalPayment = PriceMinute;
+            if (FamilyDiscount)
+            {
+                TotalPayment += SelectedPackage.SecondSale;
+            }
+            if (MostCalledNums)
+            {
+                TotalPayment += SelectedPackage.ThirdSale;
+            }
+            if (FavoriteNum)
+            {
+                TotalPayment += SelectedPackage.ForthSale;
+            }
+        }
+
+        /// <summary>
         /// update line/package/mostcallednumbers when update button clicks
         /// </summary>
         private void OnUpdate(object obj)
         {
             try
             {
-                if (SelectedPackage == null || SelectedLine.LineId == 0)
+                if ((SelectedPackage == null || SelectedPackage.LineId == 0) && IsPackage)
                 {
                     var package = bl.AddPackage("Package" + clientId, SelectedLine.LineId, TotalPayment, DateTime.Now,
-                        SelectedPackage.MaxMinute, PriceMinute, 0.5,
+                        SelectedPackage.MaxMinute, PriceMinute, SelectedPackage.DiscountPercentage,
                         FavoriteNum, MostCalledNums, FamilyDiscount);
                     if (MostCalledNums)
                     {
@@ -218,12 +264,16 @@ namespace CustomerServiceUI.ViewModels
                     }
                     MessageBox.Show(string.Format("Package added for line {0}", SelectedLine.Number));
                 }
-                else
+                else if (SelectedPackage.PackageId != 0)
                 {
                     bl.UpdatePackage(SelectedPackage.PackageId, SelectedPackage.PackageName, SelectedPackage.LineId,
                                     TotalPayment, SelectedPackage.Month, SelectedPackage.MaxMinute, PriceMinute,
                                     SelectedPackage.DiscountPercentage, FavoriteNum, MostCalledNums, FamilyDiscount);
                     MessageBox.Show(string.Format("Package updated for line {0} succefully", SelectedLine.Number));
+                }
+                else
+                {
+                    MessageBox.Show("No Package to update");
                 }
                 Reset();
             }
@@ -269,7 +319,7 @@ namespace CustomerServiceUI.ViewModels
             }
             return true;
         }
-        
+
         /// <summary>
         /// add line for current client and add package if package is picked
         /// </summary>
@@ -277,21 +327,28 @@ namespace CustomerServiceUI.ViewModels
         {
             try
             {
-                var line = bl.AddLine(clientId, SelectedLine.Number, eStatus.available);
-                if (IsPackage)
+                if (SelectedLine.Number == "" || SelectedLine.Number == null)
                 {
-                    var package = bl.AddPackage("Package" + line.LineId, line.LineId, TotalPayment, DateTime.Now,
-                        SelectedPackage.MaxMinute, PriceMinute, SelectedPackage.DiscountPercentage,
-                        FavoriteNum, MostCalledNums, FamilyDiscount);
-                    if (MostCalledNums)
-                    {
-                        bl.AddMostCalledNums(package.PackageId, SelectedNumbers.FirstNumber, SelectedNumbers.SecondNumber, SelectedNumbers.ThirdNumber);
-                    }
-                    MessageBox.Show(string.Format("Line added for client {0} with package", clientId));
+                    MessageBox.Show("Fill number");
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("Line for client id {0} added succefully", clientId));
+                    var line = bl.AddLine(clientId, SelectedLine.Number, eStatus.available);
+                    if (IsPackage)
+                    {
+                        var package = bl.AddPackage("Package" + line.LineId, line.LineId, TotalPayment, DateTime.Now,
+                            SelectedPackage.MaxMinute, PriceMinute, SelectedPackage.DiscountPercentage,
+                            FavoriteNum, MostCalledNums, FamilyDiscount);
+                        if (MostCalledNums)
+                        {
+                            bl.AddMostCalledNums(package.PackageId, SelectedNumbers.FirstNumber, SelectedNumbers.SecondNumber, SelectedNumbers.ThirdNumber);
+                        }
+                        MessageBox.Show(string.Format("Line added for client {0} with package", clientId));
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("Line for client id {0} added succefully", clientId));
+                    }
                 }
                 Reset();
             }

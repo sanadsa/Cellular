@@ -4,19 +4,25 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:OptimalPackageUI.Views"
+      xmlns:ViewModels="clr-namespace:OptimalPackageUI.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="EmployeeLogin">
+
+    <Page.DataContext>
+        <ViewModels:LoginViewModel/>
+    </Page.DataContext>
 
     <Grid>
         <StackPanel Margin="20">
             <Label Content="Employee Login" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Agent Name"/>
-            <TextBox FontSize="18"/>
-            <Label Content="Password"/>
-            <PasswordBox FontSize="18"/>
-            <Button Content="Submit" Margin="60 10" FontSize="18"/>
+            <TextBox Text="{Binding AgentName}" FontSize="18"/>
+            <Label Content="Passwrod"/>
+            <TextBox Text="{Binding Password}" FontSize="18"/>
+            <Button Command="{Binding EmployeeLoginCommand}" Content="Check Agent" Margin="60 10" FontSize="18"/>
+            <Button IsEnabled="{Binding IsClientExists}" Click="Button_Click" Content="Submit" Margin="60 10" FontSize="18"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -311,7 +311,7 @@ namespace CRM.DAL
             catch (Exception e)
             {
                 log.LogWrite("Update package error: " + e.Message);
-                throw new Exception("Update package exception: " + e.Message);
+                throw new Exception(e.Message);
             }
         }
 

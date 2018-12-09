@@ -43,7 +43,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Separator></Separator>
-            <Button Command="{Binding CalcCommand}" Content="Calculate" Margin="113,10" FontSize="14"/>
+            <Button IsEnabled="{Binding IsCalc}" Command="{Binding CalcCommand}" Content="Calculate" Margin="113,10" FontSize="14"/>
         </StackPanel>
         <ListBox  HorizontalAlignment="Left" Margin="10,239,0,10" Width="368">
             <StackPanel Orientation="Vertical" Width="328">

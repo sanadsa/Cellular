@@ -34,7 +34,7 @@
             <Separator></Separator>
             <Button Command="{Binding CalcCommand}" Content="Calculate" Margin="113,10" FontSize="14"/>
         </StackPanel>
-        <ListBox ItemsSource="{Binding Optimal}" HorizontalAlignment="Left" Margin="10,239,0,10" Width="368">
+        <ListBox  HorizontalAlignment="Left" Margin="10,239,0,10" Width="368">
             <StackPanel Orientation="Vertical" Width="328">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total Price" Width="70" FontWeight="Bold" VerticalAlignment="Top"/>

@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace OptimalPackageUI.Views
 {
     /// <summary>
-    /// Interaction logic for EmployeeLogin.xaml
+    /// Interaction logic for Manager.xaml
     /// </summary>
-    public partial class EmployeeLogin : Page
+    public partial class Manager : Page
     {
-        public EmployeeLogin()
+        public Manager()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Manager());
         }
     }
 }

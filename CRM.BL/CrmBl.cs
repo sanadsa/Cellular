@@ -112,7 +112,7 @@ namespace CRM.BL
             catch (Exception e)
             {
                 log.LogWrite("Add line error: " + e.Message);
-                throw new Exception("Add line exception: " + e.Message);
+                throw new Exception(e.Message);
             }
         }
 
@@ -270,14 +270,14 @@ namespace CRM.BL
                     }
                     else
                     {
-                        throw new Exception("update package not successs");
+                        throw new Exception("update package not success");
                     }
                 }
             }
             catch (Exception e)
             {
                 log.LogWrite("Update package bl error: " + e.Message);
-                throw new Exception("Update package exception: " + e.Message);
+                throw new Exception("No Package To Update");
             }
         }
 

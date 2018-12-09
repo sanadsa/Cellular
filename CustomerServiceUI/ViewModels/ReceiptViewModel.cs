@@ -37,6 +37,9 @@ namespace CustomerServiceUI.ViewModels
         private ObservableCollection<Receipt> receipts;
         public ObservableCollection<Receipt> Receipts { get => receipts; set => SetProperty(ref receipts, value); }
 
+        private int callsToCenter;
+        public int CallsToCenter { get => callsToCenter; set => SetProperty(ref callsToCenter, value); }
+
         private Client selectedClient = null;
         public Client SelectedClient
         {
@@ -44,6 +47,7 @@ namespace CustomerServiceUI.ViewModels
             {
                 SetProperty(ref selectedClient, value);
                 Lines = crmBl.GetClientLines(SelectedClient.ClientID);
+                CallsToCenter = SelectedClient.CallsToCenter;
             }
         }
 
@@ -161,9 +165,9 @@ namespace CustomerServiceUI.ViewModels
         {
             try
             {
-                if (PhoneNumber == null)
+                if (PhoneNumber == null || PhoneNumber == "" || !PhoneNumber.All(char.IsDigit))
                 {
-                    throw new Exception("Fill phone number");
+                    throw new Exception("Fill phone number correct");
                 }
                 if (isSms)
                 {
@@ -177,6 +181,13 @@ namespace CustomerServiceUI.ViewModels
                         throw new Exception("Fill duration");
                     }
                     invoiceBl.SimulateCall(SelectedLine.LineId, Duration, DateTime.Now, PhoneNumber, CallTo);
+                    if (CallTo == eCallTo.center)
+                    {
+                        CallsToCenter += 1;
+                        crmBl.UpdateClient(SelectedClient.ClientID, SelectedClient.ClientName, SelectedClient.LastName,
+                            SelectedClient.IdNumber, SelectedClient.ClientTypeId, SelectedClient.Address, SelectedClient.ContactNumber,
+                            CallsToCenter);
+                    }
                     MessageBox.Show(string.Format("Call added for line {0}", SelectedLine.Number));
                 }
                 Reset();

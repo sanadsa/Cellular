@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IOptimalManager.cs" />
     <Compile Include="IOptimalRepository.cs" />
+    <Compile Include="MostValueClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recommendation.cs" />
   </ItemGroup>

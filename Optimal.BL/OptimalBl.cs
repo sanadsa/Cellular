@@ -52,6 +52,105 @@ namespace Optimal.BL
         }
 
         /// <summary>
+        /// gets list of most value clients - by their value from the optimal system
+        /// </summary>
+        public List<MostValueClient> GetMostValue(List<Client> clients)
+        {
+            List<MostValueClient> mostValueClients = new List<MostValueClient>();
+            try
+            {
+                foreach (var client in clients)
+                {
+                    mostValueClients.Add(new MostValueClient
+                    {
+                        Client = client,
+                        ClientValue = GetClientValue(client.ClientID)
+                    });
+                }
+                return mostValueClients.OrderBy(m => m.ClientValue).ToList();
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get most value error: " + e.Message);
+                throw new Exception("cant most value client: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// gets list of most calling clients to center
+        /// </summary>
+        public List<Client> GetMostCallingToCenter()
+        {
+            List<Client> mostCalling;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/optimal/callingToCenter").Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        mostCalling = JsonConvert.DeserializeObject<List<Client>>(response);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+                return mostCalling;
+            }
+            catch (NullReferenceException e)
+            {
+                log.LogWrite("null most calling to center error: " + e.Message);
+                throw new Exception("null most calling to center: " + e.Message);
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get most calling to center error: " + e.Message);
+                throw new Exception("cant get most calling to center");
+            }
+        }
+
+        /// <summary>
+        /// gets list of best agents - the ones who sold highest amount of lines
+        /// </summary>
+        public List<ServiceAgent> GetBestSellers()
+        {
+            List<ServiceAgent> bestSellers;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(url);
+                    var result = client.GetAsync("api/optimal/bestSellers").Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string response = result.Content.ReadAsStringAsync().Result;
+                        bestSellers = JsonConvert.DeserializeObject<List<ServiceAgent>>(response);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+                return bestSellers;
+            }
+            catch (NullReferenceException e)
+            {
+                log.LogWrite("null best sellers: " + e.Message);
+                throw new Exception("null best sellers: " + e.Message);
+            }
+            catch (Exception e)
+            {
+                log.LogWrite("Get best sellers error: " + e.Message);
+                throw new Exception("cant get best sellers: ");
+            }
+        }
+
+        /// <summary>
         /// get client value by client id - calculated by numberOfLines, receiptSum and callsToCenter
         /// </summary>
         public double GetClientValue(int clientId)
@@ -77,7 +176,7 @@ namespace Optimal.BL
                         throw new Exception(response);
                     }
 
-                    result = client.GetAsync("api/optimal/reciepts" + clientId).Result;
+                    result = client.GetAsync("api/optimal/reciepts/" + clientId).Result;
                     response = result.Content.ReadAsStringAsync().Result;
                     if (result.IsSuccessStatusCode)
                     {
@@ -88,7 +187,7 @@ namespace Optimal.BL
                         throw new Exception(response);
                     }
 
-                    result = client.GetAsync("api/optimal/callsToCenter" + clientId).Result;
+                    result = client.GetAsync("api/optimal/callsToCenter/" + clientId).Result;
                     response = result.Content.ReadAsStringAsync().Result;
                     if (result.IsSuccessStatusCode)
                     {
@@ -104,7 +203,7 @@ namespace Optimal.BL
                 clientValue += recieptsSum / 1000 > 6 ? 6 : recieptsSum / 1000;
                 clientValue += callsToCenter * -0.1 < -3 ? -3 : callsToCenter * -0.1;
 
-                return clientValue;
+                return clientValue * 10;
             }
             catch (Exception e)
             {
@@ -210,6 +309,12 @@ namespace Optimal.BL
                 }
 
                 if (recommendation.TopMinsFamily > recommendation.TopMinsMostCalled && recommendation.TopMinsFamily > recommendation.TopMinsTopNum)
+                {
+                    recommendation.FirstRecommendation = templates[2];
+                    recommendation.SecondRecommendation = templates[1];
+                    recommendation.ThirdRecommendation = templates[0];
+                }
+                else if (recommendation.TopMinsTopNum > recommendation.TopMinsMostCalled && recommendation.TopMinsTopNum > recommendation.TopMinsFamily)
                 {
                     recommendation.FirstRecommendation = templates[0];
                     recommendation.SecondRecommendation = templates[1];

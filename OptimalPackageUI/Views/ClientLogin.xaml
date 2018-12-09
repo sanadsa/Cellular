@@ -13,7 +13,6 @@
         <ViewModels:LoginViewModel/>
     </Page.DataContext>
     
-    
     <Grid>
         <StackPanel Margin="20">
             <Label Content="Client Login" FontSize="25" HorizontalAlignment="Center"/>

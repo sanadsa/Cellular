@@ -10,7 +10,9 @@ namespace Common
     {
         friends = 1,
         family,
-        mostCalled
+        mostCalled,
+        center,
+        general
     };
 
     /// <summary>

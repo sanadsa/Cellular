@@ -16,5 +16,7 @@ namespace Optimal.Common
         double GetRecieptsSum(int clientId);
         int GetCallsToCenter(int clientId);
         Client GetClient(int clientId, string contactNumber);
+        List<Client> GetMostCalling();
+        List<ServiceAgent> GetBestSellers();
     }
 }
